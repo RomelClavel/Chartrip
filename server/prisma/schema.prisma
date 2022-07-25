@@ -1,0 +1,92 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+//Here are the models of the database
+
+// NOT MVP
+// model User {
+//   id String @id @default(cuid())
+//   email String @unique
+//   fullName String 
+//   profilePic String
+//   password String 
+//   about String
+//   routes Route[]
+//   locations Location[]
+// }
+
+model Route {
+  id String @id @default(cuid())
+  name String
+  description String
+  // NOT MVP => creator User @relation(fields: [creatorId], references: [id])
+  // creatorId String
+  thumbnail String
+  country String
+  city String
+
+  durationMax Float
+  durationMin Float
+  
+  userPicture String?
+  locations Location[]
+  tags RoutesOnTags[]
+}
+
+model Location {
+  id String @id @default(cuid())
+  name String
+  latitude Float
+  longitude Float
+  thumbnail String
+  whatToDo String
+  type Type
+  route Route @relation(fields: [routeId], references: [id])
+  routeId String
+  // NOT MVP => creator User @relation(fields: [creatorId], references: [id])
+  //creatorId Int
+  position Int
+}
+
+model Tag {
+  id String @id @default(cuid())
+  title String
+  route RoutesOnTags[]
+}
+
+model RoutesOnTags {
+  // id Int @id @default(autoincrement())
+  route Route @relation(fields: [routeId], references: [id])
+  routeId String
+  tag Tag @relation(fields: [tagId], references: [id])
+  tagId String
+  @@id([routeId, tagId])
+}
+
+enum Type {
+  FoodStall
+  Restaurant
+  Bakery
+  Bar
+  Cafe
+  Cultural
+  Beach
+  Store
+  ShoppingCenter
+  LocalAttraction
+  NationalPark
+  Park
+  Plaza
+  Museum
+  Entertainment
+  RestStop
+}
