@@ -1,6 +1,7 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
+//Route to get all the tags
 const getTags = async (req, res) => {
 	try {
 		const tags = await prisma.tag.findMany();
@@ -13,6 +14,9 @@ const getTags = async (req, res) => {
 		});
 	}
 };
+
+//CONTROLLER FUNCTION TO POST A TAG
+//Usually they are hard coded but I added it to create them easily during Development
 const postTag = async (req, res) => {
 	try {
 		const body = req.body;

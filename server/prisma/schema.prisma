@@ -12,7 +12,7 @@ datasource db {
 
 //Here are the models of the database
 
-// NOT MVP
+// NOT MVP => If I have time i'll implement it 
 // model User {
 //   id String @id @default(cuid())
 //   email String @unique
@@ -28,18 +28,19 @@ model Route {
   id String @id @default(cuid())
   name String
   description String
-  // NOT MVP => creator User @relation(fields: [creatorId], references: [id])
-  // creatorId String
   thumbnail String
   country String
   city String
-
   durationMax Float
   durationMin Float
-  
+  createdAt DateTime @default(now())
   userPicture String?
+
   locations Location[]
   tags RoutesOnTags[]
+
+  // NOT MVP => creator User @relation(fields: [creatorId], references: [id])
+  // creatorId String
 }
 
 model Location {
@@ -50,11 +51,12 @@ model Location {
   thumbnail String
   whatToDo String
   type Type
-  route Route @relation(fields: [routeId], references: [id])
+  route Route @relation(fields: [routeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   routeId String
+  position Int
+
   // NOT MVP => creator User @relation(fields: [creatorId], references: [id])
   //creatorId Int
-  position Int
 }
 
 model Tag {
@@ -64,10 +66,9 @@ model Tag {
 }
 
 model RoutesOnTags {
-  // id Int @id @default(autoincrement())
-  route Route @relation(fields: [routeId], references: [id])
+  route Route @relation(fields: [routeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   routeId String
-  tag Tag @relation(fields: [tagId], references: [id])
+  tag Tag @relation(fields: [tagId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   tagId String
   @@id([routeId, tagId])
 }
