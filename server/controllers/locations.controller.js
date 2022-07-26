@@ -25,8 +25,14 @@ const getLocationById = async (req, res) => {
 				id: locationId,
 			},
 		});
-		//Maybe edit routes so it can be more readable
-		res.status(200).json(location);
+		if (location) {
+			res.status(200).json({ OK: true, location });
+		} else {
+			res.status(404).json({
+				OK: false,
+				msg: 'Location not found by its ID',
+			});
+		}
 	} catch (error) {
 		console.log(error);
 		res.json({
@@ -48,8 +54,14 @@ const getRouteLocations = async (req, res) => {
 				position: 'asc',
 			},
 		});
-		//Maybe edit routes so it can be more readable
-		res.status(200).json(locations);
+		if (locations.length) {
+			res.status(200).json({ OK: true, locations });
+		} else {
+			res.status(404).json({
+				OK: false,
+				msg: 'Location not found by its Route',
+			});
+		}
 	} catch (error) {
 		console.log(error);
 		res.json({

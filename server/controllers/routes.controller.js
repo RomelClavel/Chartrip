@@ -26,7 +26,10 @@ const getRoutes = async (req, res) => {
 				}),
 			};
 		});
-		res.status(200).json(formattedRoutes);
+		res.status(200).json({
+			OK: true,
+			routes: formattedRoutes,
+		});
 	} catch (error) {
 		console.log(error);
 		res.json({
@@ -50,15 +53,26 @@ const getRouteById = async (req, res) => {
 				},
 			},
 		});
-		//Format the tag field on the result of the routes query so it can be accessed more easily
-		formattedRoute = {
-			...route,
-			tags: route.tags.map(({ tag }) => {
-				return tag;
-			}),
-		};
 
-		res.status(200).json(formattedRoute);
+		if (route) {
+			//Format the tag field on the result of the routes query so it can be accessed more easily
+			formattedRoute = {
+				...route,
+				tags: route.tags.map(({ tag }) => {
+					return tag;
+				}),
+			};
+
+			res.status(200).json({
+				OK: true,
+				route: formattedRoute,
+			});
+		} else {
+			res.status(404).json({
+				OK: false,
+				msg: 'Route not found',
+			});
+		}
 	} catch (error) {
 		console.log(error);
 		res.json({
@@ -88,7 +102,10 @@ const getRandomRoutes = async (req, res) => {
 				return Math.random() - 0.5;
 			})
 			.splice(9);
-		res.status(200).json(routes);
+		res.status(200).json({
+			OK: true,
+			routes,
+		});
 	} catch (error) {
 		console.log(error);
 		res.json({
@@ -101,6 +118,8 @@ const getRandomRoutes = async (req, res) => {
 //CONTROLLER TO POST A ROUTE WITH ITS LOCATIONS AND CONNECT THEM TO EXISTING TAGS
 const postRoute = async (req, res) => {
 	try {
+		//SOMEHOW VALIDATE INFORMATION HERE
+
 		//Destructuring the body of the request
 		const { locations, tags, ...route } = req.body;
 
@@ -132,7 +151,10 @@ const postRoute = async (req, res) => {
 
 		const newRoute = await prisma.route.create({ ...createQuery });
 		//Check how its sent back and maybe fix for readability
-		res.status(200).json(newRoute);
+		res.status(200).json({
+			OK: true,
+			newRoute,
+		});
 	} catch (error) {
 		console.log(error);
 		res.json({
