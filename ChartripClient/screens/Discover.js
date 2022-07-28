@@ -50,6 +50,18 @@ const Discover = ({ navigation }) => {
 				durationMax: 4,
 			},
 		];
+
+		const fetchRoutes = async () => {
+			try {
+				const data = await fetch('http://192.168.1.215:3001/discover/');
+				const routes = await data.json();
+				console.log(routes);
+			} catch (error) {
+				console.log(error);
+			}
+		};
+		fetchRoutes();
+
 		setRoutes(mockLocations);
 	}, []);
 
