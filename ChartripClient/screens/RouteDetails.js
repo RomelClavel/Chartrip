@@ -22,6 +22,7 @@ import LocationSmall from '../components/LocationSmall';
 import MapView, { Marker } from 'react-native-maps';
 // import * as Location from 'expo-location';
 import MapViewDirections from 'react-native-maps-directions';
+import LocationModal from '../components/LocationModal';
 
 // import Geolocation from 'react-native-geolocation-service';
 
@@ -53,7 +54,10 @@ const RouteDetails = ({ route, navigation }) => {
 		tags: [],
 	});
 
-	const [selectedLocation, setSelectedLocation] = useState({});
+	const [selectedLocation, setSelectedLocation] = useState({
+		open: false,
+		location: {},
+	});
 
 	const [userLocation, setUserLocation] = useState({
 		// loading: false,
@@ -79,8 +83,8 @@ const RouteDetails = ({ route, navigation }) => {
 				{
 					id: 'cl61359mx0001iwufm01w6lxt',
 					name: 'Location 1',
-					latitude: 0,
-					longitude: 0,
+					latitude: 1,
+					longitude: 1,
 					thumbnail:
 						'https://img.freepik.com/free-vector/nature-scene-with-river-hills-forest-mountain-landscape-flat-cartoon-style-illustration_1150-37326.jpg',
 					whatToDo: 'Just checking my guy dont worry',
@@ -232,7 +236,10 @@ const RouteDetails = ({ route, navigation }) => {
 							// setSelectedLocation={setSelectedLocation}
 							<Pressable
 								onPress={() => {
-									console.log(item);
+									setSelectedLocation({
+										open: true,
+										location: item,
+									});
 								}}
 							>
 								<LocationSmall location={item} />
@@ -299,6 +306,11 @@ const RouteDetails = ({ route, navigation }) => {
 					</MapView>
 				</VStack>
 			</VStack>
+			<LocationModal
+				isOpen={selectedLocation.open}
+				location={selectedLocation.location}
+				setSelectedLocation={setSelectedLocation}
+			/>
 		</ScrollView>
 	);
 };
