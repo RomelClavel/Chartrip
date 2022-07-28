@@ -2,7 +2,7 @@ import React from 'react';
 import Svg, { Path } from 'react-native-svg';
 import { COLORS } from '../styles/Styling';
 
-const WorldIcon = ({ size = 40, color = COLORS.grey }) => {
+const WorldIcon = ({ size = 40, color = COLORS.custom.grey }) => {
 	return (
 		<Svg
 			width={size}

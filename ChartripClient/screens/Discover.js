@@ -1,44 +1,91 @@
-import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
-import { TouchableOpacity, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
+import { Pressable, Text, Heading, View, FlatList, ScrollView } from 'native-base';
 import { COLORS } from '../styles/Styling';
+import { useEffect, useState } from 'react';
+import RouteTabBig from '../components/RouteTabBig';
 
-const Stack = createStackNavigator();
+const Discover = ({ navigation }) => {
+	const [routes, setRoutes] = useState([]);
 
-const Discover = () => {
+	useEffect(() => {
+		const mockLocations = [
+			{
+				id: 1,
+				thumbnail:
+					'https://img.freepik.com/premium-vector/meadows-landscape-with-mountains-hill_104785-943.jpg?w=2000',
+				name: 'Route Name',
+				country: 'Country',
+				city: 'City',
+				durationMin: 1.5,
+				durationMax: 4,
+			},
+			{
+				id: 2,
+				thumbnail:
+					'https://img.freepik.com/premium-vector/meadows-landscape-with-mountains-hill_104785-943.jpg?w=2000',
+				name: 'Route Name 2',
+				country: 'Country',
+				city: 'City',
+				durationMin: 3,
+				durationMax: 4,
+			},
+			{
+				id: 3,
+				thumbnail:
+					'https://img.freepik.com/premium-vector/meadows-landscape-with-mountains-hill_104785-943.jpg?w=2000',
+				name: 'Route Name 2',
+				country: 'Country',
+				city: 'City',
+				durationMin: 3,
+				durationMax: 4,
+			},
+			{
+				id: 4,
+				thumbnail:
+					'https://img.freepik.com/premium-vector/meadows-landscape-with-mountains-hill_104785-943.jpg?w=2000',
+				name: 'Route Name 2',
+				country: 'Country',
+				city: 'City',
+				durationMin: 3,
+				durationMax: 4,
+			},
+		];
+		setRoutes(mockLocations);
+	}, []);
+
 	return (
-		<Stack.Navigator>
-			<Stack.Screen name="DiscoverRoutes" component={DiscoverRoutes} />
-			<Stack.Screen name="RouteDetails" component={RouteDetails} />
-		</Stack.Navigator>
-	);
-};
-
-const DiscoverRoutes = ({ navigation }) => {
-	return (
-		<View style={styles.container}>
-			<Text> DISCOVER </Text>
-			<TouchableOpacity
-				style={{ borderRadius: 10 }}
-				onPress={() => {
-					navigation.navigate('RouteDetails');
-				}}
-			>
-				<Text style={[styles.text, { backgroundColor: 'pink', padding: 10 }]}>
-					{' '}
-					Navigate My Guy
-				</Text>
-			</TouchableOpacity>
+		<View backgroundColor={COLORS.custom.backgroundWhite} height={'100%'}>
+			<FlatList
+				data={routes}
+				keyExtractor={(item) => item.id}
+				renderItem={({ item }) => <RouteTabBig route={item} navigation={navigation} />}
+				ListHeaderComponent={
+					<Heading
+						alignSelf={'center'}
+						mt={4}
+						my={2}
+						fontWeight={'medium'}
+						fontSize={'xl'}
+					>
+						Discover
+					</Heading>
+				}
+			/>
 		</View>
 	);
 };
-const RouteDetails = () => {
-	return (
-		<View style={styles.container}>
-			<Text> Route Details </Text>
-		</View>
-	);
-};
+{
+	/* <Pressable
+	p={4}
+	bgColor={'red.400'}
+	rounded={'8'}
+	onPress={() => {
+		navigation.navigate('RouteDetails');
+	}}
+>
+	<Text>Press me</Text>
+</Pressable> */
+}
 
 const styles = StyleSheet.create({
 	container: {
