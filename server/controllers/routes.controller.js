@@ -85,15 +85,15 @@ const getRouteById = async (req, res) => {
 const getRandomRoutes = async (req, res) => {
 	try {
 		let routes = await prisma.route.findMany({
-			select: {
-				id: true,
-				name: true,
-				country: true,
-				city: true,
-				durationMax: true,
-				durationMin: true,
-				userPicture: true,
-				thumbnail: true,
+			include: {
+				locations: {
+					orderBy: {
+						position: 'asc',
+					},
+				},
+				tags: {
+					include: { tag: true },
+				},
 			},
 		});
 		//Shuffle the Routes so they can be random and then selecting 10 of them
