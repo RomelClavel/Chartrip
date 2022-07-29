@@ -102,9 +102,18 @@ const getRandomRoutes = async (req, res) => {
 				return Math.random() - 0.5;
 			})
 			.splice(9);
+
+		formattedRoutes = routes.map((route) => {
+			return {
+				...route,
+				tags: route.tags.map(({ tag }) => {
+					return tag;
+				}),
+			};
+		});
 		res.status(200).json({
 			OK: true,
-			routes,
+			routes: formattedRoutes,
 		});
 	} catch (error) {
 		console.log(error);

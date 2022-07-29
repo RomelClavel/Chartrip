@@ -13,6 +13,8 @@ const {
 	getRouteLocations,
 } = require('../controllers/locations.controller');
 
+const { getCountries, getStatesByCountry } = require('../controllers/cs.api');
+
 //ROUTES
 router.get('/routes', getRoutes);
 router.get('/route/:id', getRouteById); // Route by ID => All data
@@ -24,13 +26,12 @@ router.get('/locations', getLocations);
 router.get('/location/:id', getLocationById);
 router.get('/locations/:route_id', getRouteLocations);
 
-/*
-    Location by ID => All Data
-    Location by RouteId => All Data
-*/
-
 //TAGS
 router.get('/tags', getTags);
 router.post('/new/tag', postTag);
+
+//Country-State-City Helper
+router.get('/countries', getCountries);
+router.get('/states/:country', getStatesByCountry);
 
 module.exports = router;
