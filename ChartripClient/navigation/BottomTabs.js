@@ -18,6 +18,7 @@ const BottomTabs = () => {
 				tabBarStyle: { paddingTop: 14, height: 60 },
 				tabBarLabelStyle: { fontWeight: '600', fontSize: 11, paddingTop: 10 },
 				tabBarIcon: ({ color }) => {
+					console.log(route);
 					const size = 36;
 					switch (route.name) {
 						case 'Discover':
@@ -28,7 +29,7 @@ const BottomTabs = () => {
 				},
 			})}
 		>
-			<Tab.Screen name="DiscoverNav" component={DiscoverStack} />
+			<Tab.Screen name="Discover" component={DiscoverStack} />
 			<Tab.Screen name="Create" component={CreateRoute} />
 		</Tab.Navigator>
 	);

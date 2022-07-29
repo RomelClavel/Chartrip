@@ -17,21 +17,6 @@ export default function App() {
 			},
 		},
 	});
-
-	const MyTheme = {
-		...DefaultTheme,
-		colors: {
-			...DefaultTheme.colors,
-			background: COLORS.backgroundWhite,
-		},
-	};
-
-	// white: '#FFFFFF',
-	// 	backgroundWhite: '#FAFAFA',
-	// 	primary: '#05BE70',
-	// 	primaryDark: '#059A5B',
-	// 	primaryLight: '#03ED8A',
-	// 	grey: '#C1C1C1',
 	return (
 		<NavigationContainer>
 			<SafeAreaView style={{ flex: 0, backgroundColor: COLORS.custom.backgroundWhite }} />

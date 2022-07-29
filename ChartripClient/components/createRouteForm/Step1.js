@@ -10,14 +10,19 @@ import {
 	Text,
 	Select,
 	HStack,
+	TextArea,
 } from 'native-base';
 import React, { useEffect, useState } from 'react';
-import { TextInput } from 'react-native';
+import TextInput from './TextInput';
 import { COLORS } from '../../styles/Styling';
 import { useForm, Controller } from 'react-hook-form';
+import MultiSlider from '@ptomasroos/react-native-multi-slider';
+import TextAreaInput from './TextAreaInput';
+import CountryStateInput from './CountryStateInput';
 
 const Step1 = () => {
 	const [countries, setCountries] = useState([]);
+	const [states, setStates] = useState([]);
 	const {
 		control,
 		handleSubmit,
@@ -26,23 +31,31 @@ const Step1 = () => {
 		defaultValues: {
 			name: '',
 			country: '',
-			city: '',
+			state: '',
+			description: '',
 		},
 	});
+
 	const onSubmit = (data) => console.log(data);
 
+	const [multiSliderValue, setMultiSliderValue] = useState([3, 7]);
+
+	const multiSliderValuesChange = (values) => setMultiSliderValue(values);
+	const [scroll, setScroll] = useState(true);
+
+	const [tags, setTags] = useState([]);
 	useEffect(() => {
-		const fetchCountries = async () => {
+		const fetchTypes = async () => {
 			try {
-				const data = await fetch('http://192.168.1.215:3001/countries');
-				const countries = await data.text();
-				const parsedCountries = JSON.parse(countries);
-				setCountries(parsedCountries);
+				const data = await fetch('http://192.168.1.215:3001/tags');
+				const tagsData = await data.json();
+				// const parsedCountries = JSON.parse(countries);
+				setTags(tagsData);
 			} catch (error) {
 				console.log(error);
 			}
 		};
-		fetchCountries();
+		fetchTypes();
 	}, []);
 
 	return (
@@ -50,99 +63,56 @@ const Step1 = () => {
 			<Heading my={4} alignSelf={'center'} fontWeight={'semibold'} fontSize={'xl'}>
 				Add your Route details
 			</Heading>
-			<ScrollView px={5}>
+			<ScrollView px={5} scrollEnabled={scroll}>
 				<VStack mx="3">
-					<Text {...labelStyles}> Name</Text>
-					<Controller
-						name="name"
+					<TextInput
 						control={control}
-						rules={{
-							required: true,
-						}}
-						render={({ field: { onChange, onBlur, value } }) => (
-							<Input
-								onBlur={onBlur}
-								onChangeText={onChange}
-								value={value}
-								size="lg"
-							/>
-						)}
+						name={'name'}
+						errors={errors}
+						labelStyles={labelStyles}
+						errorMsg={errorMsg}
 					/>
 
-					{errors.name && <Text {...errorMsg}>This is required.</Text>}
+					<CountryStateInput
+						control={control}
+						errors={errors}
+						labelStyles={labelStyles}
+						errorMsg={errorMsg}
+					/>
 
-					<HStack width={'100%'}>
-						<Controller
-							name="country"
-							control={control}
-							rules={{
-								required: true,
-							}}
-							render={({ field: { onChange, onBlur, value } }) => (
-								<Select
-									selectedValue={value}
-									flex={1}
-									accessibilityLabel="Choose Country"
-									placeholder="Country"
-									_selectedItem={{
-										bg: 'teal.600',
-									}}
-									mt={1}
-									onValueChange={onChange}
-									height={10}
-									fontSize={'md'}
-								>
-									{countries.map((country) => {
-										return (
-											<Select.Item
-												label={country.name}
-												value={country.name}
-											/>
-										);
-									})}
-								</Select>
-							)}
-						/>
+					<TextAreaInput
+						control={control}
+						name={'description'}
+						errors={errors}
+						labelStyles={labelStyles}
+						errorMsg={errorMsg}
+					/>
 
-						<Controller
-							name="city"
-							control={control}
-							rules={{
-								required: true,
+					<Text {...labelStyles}> How long does it take to complete</Text>
+					<HStack alignItems={'center'} justifyContent={'space-between'}>
+						<Text fontWeight={'medium'}> {multiSliderValue[0]} hr </Text>
+						<MultiSlider
+							values={[multiSliderValue[0], multiSliderValue[1]]}
+							sliderLength={250}
+							onValuesChange={multiSliderValuesChange}
+							onValuesChangeStart={() => setScroll(false)}
+							onValuesChangeFinish={() => setScroll(true)}
+							min={1}
+							max={8}
+							selectedStyle={{
+								backgroundColor: COLORS.custom.primary,
 							}}
-							render={({ field: { onChange, onBlur, value } }) => (
-								<Select
-									selectedValue={value}
-									flex={1}
-									accessibilityLabel="Choose Country"
-									placeholder="Country"
-									_selectedItem={{
-										bg: 'teal.600',
-									}}
-									mt={1}
-									onValueChange={onChange}
-									height={10}
-									fontSize={'md'}
-								>
-									{countries.map((country) => {
-										return (
-											<Select.Item
-												label={country.name}
-												value={country.name}
-											/>
-										);
-									})}
-								</Select>
-							)}
+							trackStyle={{
+								height: 4,
+								backgroundColor: COLORS.custom.grey,
+							}}
 						/>
+						<Text fontWeight={'medium'}> {multiSliderValue[1]} hr </Text>
 					</HStack>
-					{errors.country && <Text {...errorMsg}>This is required.</Text>}
-					{errors.city && <Text {...errorMsg}>This is required.</Text>}
 
 					<Button title="Submit" onPress={handleSubmit(onSubmit)} />
 				</VStack>
 			</ScrollView>
-			<Text color={'error.300'}>as</Text>
 		</View>
 	);
 };
@@ -150,6 +120,7 @@ const Step1 = () => {
 const labelStyles = {
 	fontWeight: 'medium',
 	opacity: 80,
+	mt: '2',
 	mb: '1',
 };
 const errorMsg = {

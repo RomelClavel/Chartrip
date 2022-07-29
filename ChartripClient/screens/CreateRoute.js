@@ -45,7 +45,7 @@ const CreateRoute = () => {
 							? TabStyles.completed
 							: TabStyles.inactive;
 					return (
-						<Pressable onPress={() => setIndex(i)}>
+						<Pressable onPress={() => setIndex(i)} key={i}>
 							<Text fontWeight={'semibold'} color={activeStyles.color}>
 								{route.title}
 							</Text>

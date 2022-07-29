@@ -10,6 +10,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@ptomasroos/react-native-multi-slider": "^2.2.2",
     "@react-native-community/datetimepicker": "6.1.2",
     "@react-navigation/bottom-tabs": "^6.3.2",
     "@react-navigation/native": "^6.0.11",

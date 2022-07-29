@@ -108,9 +108,15 @@ const RouteDetails = ({ route, navigation }) => {
 				<VStack width={'90%'}>
 					<Text {...textSectionStyles}>Tags</Text>
 					<HStack flexWrap={'wrap'}>
-						{routeData.tags.map((tag) => {
+						{routeData.tags.map((tag, index) => {
 							return (
-								<Badge bgColor={'primary.500'} mx={1} mb={1} rounded={'lg'}>
+								<Badge
+									bgColor={'primary.500'}
+									mx={1}
+									mb={1}
+									rounded={'lg'}
+									key={index}
+								>
 									<Text color={'white'}>{tag.title}</Text>
 								</Badge>
 							);
