@@ -10,6 +10,7 @@ const DiscoverStack = () => {
 		<Stack.Navigator
 			screenOptions={{
 				headerShown: false,
+				// animationTypeForReplace: 'pop',
 			}}
 		>
 			<Stack.Screen name="DiscoverRoutes" component={Discover} />

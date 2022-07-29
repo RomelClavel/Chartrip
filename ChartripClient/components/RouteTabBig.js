@@ -6,12 +6,12 @@ import TimeIcon from '../icons/TimeIcon';
 import { Pressable } from 'react-native';
 
 const RouteTabBig = ({ route, navigation }) => {
-	const { id, thumbnail, name, country, city, durationMin, durationMax } = route;
+	const { thumbnail, name, country, city, durationMin, durationMax } = route;
 	return (
 		<Pressable
 			onPress={() => {
 				navigation.navigate('RouteDetails', {
-					routeID: id,
+					routeData: route,
 				});
 			}}
 		>

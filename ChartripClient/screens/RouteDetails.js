@@ -23,123 +23,21 @@ import MapView, { Marker } from 'react-native-maps';
 // import * as Location from 'expo-location';
 import MapViewDirections from 'react-native-maps-directions';
 import LocationModal from '../components/LocationModal';
+import createMapDirections from '../helpers/createMapDirections';
+import getRouteCenter from '../helpers/getRouteCenter';
 
 // import Geolocation from 'react-native-geolocation-service';
 
 const RouteDetails = ({ route, navigation }) => {
-	const { routeID } = route.params;
-	// Geolocation.getCurrentPosition(
-	// 	(position) => {
-	// 		console.log(position);
-	// 	},
-	// 	(error) => {
-	// 		// See error code charts below.
-	// 		console.log(error.code, error.message);
-	// 	},
-	// 	{ enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
-	// );
-
-	const [routeData, setRouteData] = useState({
-		id: '',
-		name: '',
-		description: '',
-		thumbnail: '',
-		country: '',
-		city: '',
-		durationMax: 0,
-		durationMin: 0,
-		createdAt: '',
-		userPicture: null,
-		locations: [],
-		tags: [],
-	});
+	const { routeData } = route.params;
 
 	const [selectedLocation, setSelectedLocation] = useState({
 		open: false,
 		location: {},
 	});
 
-	const [userLocation, setUserLocation] = useState({
-		// loading: false,
-		latitude: 41.39501475518845,
-		longitude: 2.197717434570719,
-	});
-
-	useEffect(() => {
-		setRouteData({
-			id: 'cl61359mu0000iwuflu2jenoj',
-			name: 'Second Created Route',
-			description:
-				'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam egestas hendrerit ligula pellentesque euismod. Sed sodales elit eleifend, porta libero ac, faucibus ante.',
-			thumbnail:
-				'https://img.freepik.com/premium-vector/meadows-landscape-with-mountains-hill_104785-943.jpg?w=2000',
-			country: 'Venezuela',
-			city: 'Caracas',
-			durationMax: 1.5,
-			durationMin: 3,
-			createdAt: '2022-07-26T12:08:46.247Z',
-			userPicture: null,
-			locations: [
-				{
-					id: 'cl61359mx0001iwufm01w6lxt',
-					name: 'Location 1',
-					latitude: 1,
-					longitude: 1,
-					thumbnail:
-						'https://img.freepik.com/free-vector/nature-scene-with-river-hills-forest-mountain-landscape-flat-cartoon-style-illustration_1150-37326.jpg',
-					whatToDo: 'Just checking my guy dont worry',
-					type: 'RestStop',
-					routeId: 'cl61359mu0000iwuflu2jenoj',
-					position: 1,
-				},
-				{
-					id: 'cl61359my0002iwufcvwv42kp',
-					name: 'Location 2',
-					latitude: 1,
-					longitude: 1,
-					thumbnail:
-						'https://img.freepik.com/free-vector/nature-scene-with-river-hills-forest-mountain-landscape-flat-cartoon-style-illustration_1150-37326.jpg',
-					whatToDo: 'Just checking my guy dont worry',
-					type: 'Restaurant',
-					routeId: 'cl61359mu0000iwuflu2jenoj',
-					position: 2,
-				},
-			],
-			tags: [
-				{
-					id: 'cl60z3m6ad0000f0ufk3rr90fa',
-					title: 'New Tag',
-				},
-				{
-					id: 'cl60z3m6a0s000f0ufk3rr90fa',
-					title: 'New Tags 2',
-				},
-				{
-					id: 'cl6g0z3m6a0000f0ufk3rr90fa',
-					title: 'New Tags 3 Baby',
-				},
-				{
-					id: 'cl60z3m6a0000f0ufka3rr90fa',
-					title: '4 Tags Baby',
-				},
-			],
-		});
-		// (async () => {
-		// 	let { status } = await Location.requestForegroundPermissionsAsync();
-		// 	if (status !== 'granted') {
-		// 		setErrorMsg('Permission to access location was denied');
-		// 		return;
-		// 	}
-		// 	let location = await Location.getCurrentPositionAsync({});
-		// 	console.log(location);
-		// 	setUserLocation({
-		// 		loading: false,
-		// 		latitude: location.coords.latitude,
-		// 		longitude: location.coords.longitude,
-		// 	});
-		// })();
-	}, []);
-
+	const directionsArray = createMapDirections(routeData.locations);
+	const routeCenter = getRouteCenter(routeData.locations);
 	return (
 		<ScrollView backgroundColor={COLORS.custom.backgroundWhite}>
 			{/* See if I can separate this to another component*/}
@@ -209,43 +107,33 @@ const RouteDetails = ({ route, navigation }) => {
 				</VStack>
 				<VStack width={'90%'}>
 					<Text {...textSectionStyles}>Tags</Text>
-					{/* {routeData.tags.map((tag) => {
-						return (
-							<Badge bgColor={'primary.500'} mx={1} mb={1} rounded={'lg'} width=>
-								<Text color={'white'}>{tag.title}</Text>
-							</Badge>
-						);
-					})} */}
-					<FlatList
-						numColumns={3}
-						data={routeData.tags}
-						keyExtractor={(item) => item.id}
-						renderItem={({ item }) => (
-							<Badge bgColor={'primary.500'} mx={1} mb={1} rounded={'lg'}>
-								<Text color={'white'}>{item.title}</Text>
-							</Badge>
-						)}
-					/>
+					<HStack flexWrap={'wrap'}>
+						{routeData.tags.map((tag) => {
+							return (
+								<Badge bgColor={'primary.500'} mx={1} mb={1} rounded={'lg'}>
+									<Text color={'white'}>{tag.title}</Text>
+								</Badge>
+							);
+						})}
+					</HStack>
 				</VStack>
 				<VStack width={'90%'}>
 					<Text {...textSectionStyles}>Locations</Text>
-					<FlatList
-						data={routeData.locations}
-						keyExtractor={(item) => item.id}
-						renderItem={({ item }) => (
-							// setSelectedLocation={setSelectedLocation}
+					{routeData.locations.map((location, index) => {
+						return (
 							<Pressable
+								key={index}
 								onPress={() => {
 									setSelectedLocation({
 										open: true,
-										location: item,
+										location: location,
 									});
 								}}
 							>
-								<LocationSmall location={item} />
+								<LocationSmall location={location} key={location.id} />
 							</Pressable>
-						)}
-					/>
+						);
+					})}
 				</VStack>
 				<VStack width={'90%'}>
 					<Text {...textSectionStyles}>Map</Text>
@@ -253,56 +141,38 @@ const RouteDetails = ({ route, navigation }) => {
 					<MapView
 						style={{ height: 300, width: '100%', borderRadius: 8 }}
 						initialRegion={{
-							latitude: (userLocation.latitude * 3 + 0.02) / 3,
-							longitude: (userLocation.longitude * 3 + 0.01) / 3,
+							latitude: routeCenter.latitude,
+							longitude: routeCenter.longitude,
 							latitudeDelta: 0.0622,
 							longitudeDelta: 0.0121,
 						}}
 					>
-						<MapViewDirections
-							origin={{
-								latitude: userLocation.latitude,
-								longitude: userLocation.longitude,
-							}}
-							destination={{
-								latitude: userLocation.latitude + 0.01,
-								longitude: userLocation.longitude,
-							}}
-							apikey={'AIzaSyBsWEG5VIepvFo_LU0QzBG99bYdWhdaiJA'} // insert your API Key here
-							strokeWidth={4}
-							strokeColor={COLORS.custom.primary}
-						/>
-						<MapViewDirections
-							origin={{
-								latitude: userLocation.latitude + 0.01,
-								longitude: userLocation.longitude,
-							}}
-							destination={{
-								latitude: userLocation.latitude + 0.01,
-								longitude: userLocation.longitude + 0.01,
-							}}
-							apikey={'AIzaSyBsWEG5VIepvFo_LU0QzBG99bYdWhdaiJA'} // insert your API Key here
-							strokeWidth={4}
-							strokeColor={COLORS.custom.primary}
-						/>
-						<Marker
-							coordinate={{
-								latitude: userLocation.latitude,
-								longitude: userLocation.longitude,
-							}}
-						/>
-						<Marker
-							coordinate={{
-								latitude: userLocation.latitude + 0.01,
-								longitude: userLocation.longitude,
-							}}
-						/>
-						<Marker
-							coordinate={{
-								latitude: userLocation.latitude + 0.01,
-								longitude: userLocation.longitude + 0.01,
-							}}
-						/>
+						{directionsArray.map(({ origin, destination }, index) => {
+							return (
+								<MapViewDirections
+									origin={{ ...origin }}
+									destination={{
+										...destination,
+									}}
+									apikey={'AIzaSyBsWEG5VIepvFo_LU0QzBG99bYdWhdaiJA'} // insert your API Key here
+									strokeWidth={4}
+									strokeColor={COLORS.custom.primary}
+									key={index}
+								/>
+							);
+						})}
+
+						{routeData.locations.map((loc, index) => {
+							return (
+								<Marker
+									coordinate={{
+										latitude: loc.latitude,
+										longitude: loc.longitude,
+									}}
+									key={index}
+								/>
+							);
+						})}
 					</MapView>
 				</VStack>
 			</VStack>
@@ -321,3 +191,29 @@ const textSectionStyles = {
 	my: '1',
 };
 export default RouteDetails;
+
+// Geolocation.getCurrentPosition(
+// 	(position) => {
+// 		console.log(position);
+// 	},
+// 	(error) => {
+// 		// See error code charts below.
+// 		console.log(error.code, error.message);
+// 	},
+// 	{ enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
+// );
+
+// (async () => {
+// 	let { status } = await Location.requestForegroundPermissionsAsync();
+// 	if (status !== 'granted') {
+// 		setErrorMsg('Permission to access location was denied');
+// 		return;
+// 	}
+// 	let location = await Location.getCurrentPositionAsync({});
+// 	console.log(location);
+// 	setUserLocation({
+// 		loading: false,
+// 		latitude: location.coords.latitude,
+// 		longitude: location.coords.longitude,
+// 	});
+// })();
