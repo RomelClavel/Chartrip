@@ -69,6 +69,7 @@ const CountryStateInput = ({ control, errors, labelStyles, errorMsg }) => {
 							</Select>
 						)}
 					/>
+					{errors.country && <Text {...errorMsg}>This is required.</Text>}
 				</VStack>
 
 				<VStack flex={1}>
@@ -99,10 +100,9 @@ const CountryStateInput = ({ control, errors, labelStyles, errorMsg }) => {
 							</Select>
 						)}
 					/>
+					{errors.state && <Text {...errorMsg}>This is required.</Text>}
 				</VStack>
 			</HStack>
-			{errors.country && <Text {...errorMsg}>This is required.</Text>}
-			{errors.state && <Text {...errorMsg}>This is required.</Text>}
 		</>
 	);
 };

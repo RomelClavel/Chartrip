@@ -20,7 +20,6 @@ export default function App() {
 	return (
 		<NavigationContainer>
 			<SafeAreaView style={{ flex: 0, backgroundColor: COLORS.custom.backgroundWhite }} />
-
 			<SafeAreaView style={{ flex: 1 /*backgroundColor: COLORS.backgroundWhite*/ }}>
 				<NativeBaseProvider theme={theme}>
 					<BottomTabs />
