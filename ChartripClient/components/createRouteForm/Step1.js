@@ -13,6 +13,7 @@ import {
 	TextArea,
 	Image,
 	Pressable,
+	Badge,
 } from 'native-base';
 import React, { useEffect, useState } from 'react';
 import TextInput from './TextInput';
@@ -26,6 +27,20 @@ import ImgIcon from '../../icons/ImgIcon';
 
 const Step1 = () => {
 	const [image, setImage] = useState('');
+	const [selectedTags, setSelectedTags] = useState([]);
+
+	const selectTag = ({ id }) => {
+		console.log(selectedTags.includes(id));
+		if (!selectedTags.includes(id)) {
+			setSelectedTags((prev) => [...prev, id]);
+		} else {
+			setSelectedTags([...selectedTags.filter((tagId) => tagId !== id)]);
+		}
+	};
+
+	// const tagIsSelected = ({ id }) => {
+	// 	return selectedTags.includes(id) ? {} : notSelected;
+	// };
 
 	const {
 		control,
@@ -52,6 +67,7 @@ const Step1 = () => {
 		if (!result.cancelled) {
 			// setImage({ image: result.uri });
 
+			//MAKE PNG
 			let base64Img = `data:image/jpg;base64,${result.base64}`;
 
 			let apiUrl = 'https://api.cloudinary.com/v1_1/dyicovnlz/upload';
@@ -71,11 +87,9 @@ const Step1 = () => {
 					console.log(r);
 					let data = await r.text();
 					const parsedData = JSON.parse(data);
-					// console.log(parsedData);
-					// console.log(parsedData.secure_url);
+
 					const imageSet =
 						parsedData.secure_url.slice(0, parsedData.secure_url.length - 3) + 'png';
-					console.log(imageSet);
 					onChange(imageSet);
 					setImage(imageSet);
 				})
@@ -107,11 +121,11 @@ const Step1 = () => {
 
 	return (
 		<View style={{ flex: 1, backgroundColor: COLORS.custom.backgroundWhite }}>
-			<Heading my={4} alignSelf={'center'} fontWeight={'semibold'} fontSize={'xl'}>
-				Add your Route details
-			</Heading>
 			<ScrollView px={5} scrollEnabled={scroll}>
 				<VStack mx="3">
+					<Heading mt={4} alignSelf={'center'} fontWeight={'semibold'} fontSize={'xl'}>
+						Add your Route details
+					</Heading>
 					<TextInput
 						control={control}
 						name={'name'}
@@ -185,7 +199,7 @@ const Step1 = () => {
 								{image.length > 0 ? (
 									<Image
 										source={{
-											uri: 'https://res.cloudinary.com/dyicovnlz/image/upload/v1659117991/ulhnu4mabaszyl61byjr.jpg',
+											uri: image,
 										}}
 										alt="AltText"
 										size={200}
@@ -214,6 +228,49 @@ const Step1 = () => {
 
 					{errors.thumbnail && <Text {...errorMsg}>This is required.</Text>}
 
+					<Text {...labelStyles}> Select some Tags for your Route</Text>
+
+					<HStack flexWrap={'wrap'}>
+						{tags.map((tag, index) => {
+							return (
+								<Pressable
+									key={index}
+									onPress={() => {
+										selectTag(tag);
+									}}
+								>
+									<Badge
+										mx={1}
+										mb={2}
+										rounded={'lg'}
+										// {...tagIsSelected(tag)}
+
+										bgColor={
+											selectedTags.includes(tag.id) ? 'primary.500' : 'white'
+										}
+										variant={
+											selectedTags.includes(tag.id) ? 'solid' : 'outline'
+										}
+										borderColor={'primary.500'}
+										borderWidth={2}
+									>
+										<Text
+											p={1}
+											color={
+												selectedTags.includes(tag.id)
+													? 'white'
+													: 'primary.500'
+											}
+											fontWeight={'medium'}
+										>
+											{tag.title}
+										</Text>
+									</Badge>
+								</Pressable>
+							);
+						})}
+					</HStack>
+
 					<Button title="Submit" onPress={handleSubmit(onSubmit)}>
 						Submit
 					</Button>
@@ -235,6 +292,13 @@ const errorMsg = {
 	color: 'error.500',
 	my: '1',
 	ml: '3',
+};
+const notSelected = {
+	bgColor: 'white',
+	variant: 'outline',
+	color: 'primary.500',
+	borderColor: 'primary.500',
+	borderWidth: 2,
 };
 
 export default Step1;
