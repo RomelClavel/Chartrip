@@ -9,11 +9,11 @@ import Step3 from '../components/createRouteForm/Step3';
 
 const CreateRoute = () => {
 	const renderScene = ({ route, jumpTo }) => {
+		return <Step2 jumpTo={jumpTo} />;
 		switch (route.key) {
 			case 'first':
 				return <Step1 jumpTo={jumpTo} />;
 			case 'second':
-				return <Step2 jumpTo={jumpTo} />;
 			case 'third':
 				return <Step3 jumpTo={jumpTo} />;
 			default:

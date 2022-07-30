@@ -9,8 +9,6 @@ const TagInput = ({ control, errors, labelStyles, errorMsg }) => {
 			try {
 				const data = await fetch('http://192.168.1.215:3001/tags');
 				const tagsData = await data.json();
-				// const parsedCountries = JSON.parse(countries);
-
 				setTags(tagsData);
 			} catch (error) {
 				console.log(error);

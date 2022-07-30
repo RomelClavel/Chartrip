@@ -1,30 +1,10 @@
-import {
-	View,
-	Box,
-	ScrollView,
-	Heading,
-	VStack,
-	FormControl,
-	Input,
-	Button,
-	Text,
-	Select,
-	HStack,
-	TextArea,
-	Image,
-	Pressable,
-	Badge,
-	Divider,
-} from 'native-base';
-import React, { useEffect, useState } from 'react';
+import { View, ScrollView, Heading, VStack, Text, Pressable, Divider } from 'native-base';
+import React, { useState } from 'react';
 import TextInput from './TextInput';
 import { COLORS } from '../../styles/Styling';
-import { useForm, Controller } from 'react-hook-form';
-import MultiSlider from '@ptomasroos/react-native-multi-slider';
+import { useForm } from 'react-hook-form';
 import TextAreaInput from './TextAreaInput';
 import CountryStateInput from './CountryStateInput';
-import * as ImagePicker from 'expo-image-picker';
-import ImgIcon from '../../icons/ImgIcon';
 import SliderTimeInput from './SliderTimeInput';
 import ImgInput from './ImgInput';
 import TagInput from './TagInput';
@@ -135,13 +115,6 @@ const errorMsg = {
 	color: 'error.500',
 	my: '1',
 	ml: '3',
-};
-const notSelected = {
-	bgColor: 'white',
-	variant: 'outline',
-	color: 'primary.500',
-	borderColor: 'primary.500',
-	borderWidth: 2,
 };
 
 export default Step1;

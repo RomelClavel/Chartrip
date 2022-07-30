@@ -1,5 +1,5 @@
-import { StatusBar } from 'expo-status-bar';
-import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
+// import { StatusBar } from 'expo-status-bar';
+import { NavigationContainer } from '@react-navigation/native';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import BottomTabs from './navigation/BottomTabs';
 import { COLORS } from './styles/Styling';
@@ -28,12 +28,3 @@ export default function App() {
 		</NavigationContainer>
 	);
 }
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: COLORS.backgroundWhite,
-		alignItems: 'center',
-		justifyContent: 'center',
-	},
-});
