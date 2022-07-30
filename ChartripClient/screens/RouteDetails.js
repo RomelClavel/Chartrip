@@ -164,6 +164,7 @@ const RouteDetails = ({ route, navigation }) => {
 									strokeWidth={4}
 									strokeColor={COLORS.custom.primary}
 									key={index}
+									mode={'WALKING'}
 								/>
 							);
 						})}

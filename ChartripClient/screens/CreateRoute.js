@@ -8,16 +8,18 @@ import Step2 from '../components/createRouteForm/Step2';
 import Step3 from '../components/createRouteForm/Step3';
 
 const CreateRoute = () => {
-	// const FirstRoute = () => <View style={{ flex: 1, backgroundColor: '#ff4081' }} />;
-
-	// const SecondRoute = () => <View style={{ flex: 1, backgroundColor: '#673ab7' }} />;
-	// const ThirdRoute = () => <View style={{ flex: 1, backgroundColor: 'teal' }} />;
-
-	const renderScene = SceneMap({
-		first: Step1,
-		second: Step2,
-		third: Step3,
-	});
+	const renderScene = ({ route, jumpTo }) => {
+		switch (route.key) {
+			case 'first':
+				return <Step1 jumpTo={jumpTo} />;
+			case 'second':
+				return <Step2 jumpTo={jumpTo} />;
+			case 'third':
+				return <Step3 jumpTo={jumpTo} />;
+			default:
+				return <Step1 jumpTo={jumpTo} />;
+		}
+	};
 
 	const layout = useWindowDimensions();
 
@@ -45,7 +47,7 @@ const CreateRoute = () => {
 							? TabStyles.completed
 							: TabStyles.inactive;
 					return (
-						<Pressable onPress={() => setIndex(i)} key={i}>
+						<Pressable /*onPress={() => setIndex(i)}*/ key={i}>
 							<Text fontWeight={'semibold'} color={activeStyles.color}>
 								{route.title}
 							</Text>
