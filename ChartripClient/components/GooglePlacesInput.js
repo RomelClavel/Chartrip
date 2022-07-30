@@ -2,10 +2,16 @@ import React from 'react';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import Constants from 'expo-constants';
 import { COLORS } from '../styles/Styling';
+import { Input } from 'native-base';
 
 const GooglePlacesInput = ({ setValue, setLocValues, setIsOpen }) => {
 	return (
 		<GooglePlacesAutocomplete
+			textInputProps={{
+				InputComp: googleInput,
+				leftIcon: { type: 'font-awesome', name: 'chevron-left' },
+				errorStyle: { color: 'red' },
+			}}
 			placeholder="Search"
 			onPress={(data, details = null) => {
 				// 'details' is provided when fetchDetails = true
@@ -55,6 +61,11 @@ const GooglePlacesInput = ({ setValue, setLocValues, setIsOpen }) => {
 			}}
 		/>
 	);
+};
+
+//CHANGE THIS SO THAT I CAN EMPTY IT
+const googleInput = () => {
+	return <Input width={100} value={'aa'} />;
 };
 
 export default GooglePlacesInput;

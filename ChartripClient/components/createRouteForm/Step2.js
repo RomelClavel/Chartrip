@@ -55,10 +55,10 @@ const Step2 = () => {
 		type: 'RestStop',
 	});
 
-	const onSubmit = (data) => {
-		console.log(data);
-		jumpTo('second');
-	};
+	// const onSubmit = (data) => {
+	// 	console.log(data);
+	// 	jumpTo('second');
+	// };
 
 	const removeLoc = (index) => {
 		setLocations(locations.filter((_, i) => index !== i));
@@ -100,6 +100,7 @@ const Step2 = () => {
 				errors={errors}
 				handleSubmit={(values) => {
 					console.log('a');
+
 					setLocations((prev) => [...prev, values]);
 					// handleSubmit(onSubmit);
 				}}
@@ -107,7 +108,7 @@ const Step2 = () => {
 		</View>
 	);
 };
-const NoLoc = ({ setIsOpen }) => {
+const NoLoc = () => {
 	return (
 		<Pressable>
 			{/* onPress={() => setIsOpen(true)} */}
