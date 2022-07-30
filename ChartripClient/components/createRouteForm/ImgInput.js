@@ -25,7 +25,7 @@ const ImgInput = ({ control, errors, labelStyles, errorMsg }) => {
 			let apiUrl = Constants.manifest.extra.CLOUDINARY_URL;
 			let data = {
 				file: base64Img,
-				upload_preset: Constants.manifest.extra.ep160veg,
+				upload_preset: Constants.manifest.extra.PRESET_CLOUDINARY_NAME,
 			};
 
 			fetch(apiUrl, {
@@ -39,6 +39,7 @@ const ImgInput = ({ control, errors, labelStyles, errorMsg }) => {
 					let data = await r.text();
 					const parsedData = JSON.parse(data);
 					const imageSet = parsedData.secure_url;
+					console.log(imageSet);
 					onChange(imageSet);
 					setImage(imageSet);
 				})
