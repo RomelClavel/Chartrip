@@ -25,6 +25,7 @@ import MapViewDirections from 'react-native-maps-directions';
 import LocationModal from '../components/LocationModal';
 import createMapDirections from '../helpers/createMapDirections';
 import getRouteCenter from '../helpers/getRouteCenter';
+import Constants from 'expo-constants';
 
 // import Geolocation from 'react-native-geolocation-service';
 
@@ -160,7 +161,7 @@ const RouteDetails = ({ route, navigation }) => {
 									destination={{
 										...destination,
 									}}
-									apikey={'AIzaSyBsWEG5VIepvFo_LU0QzBG99bYdWhdaiJA'} // insert your API Key here
+									apikey={Constants.manifest.extra.GOOGLE_MAPS_API_KEY} // insert your API Key here
 									strokeWidth={4}
 									strokeColor={COLORS.custom.primary}
 									key={index}

@@ -13,7 +13,7 @@ const Step2 = () => {
 			justifyContent={'center'}
 			style={{ backgroundColor: COLORS.custom.backgroundWhite }}
 		>
-			<GooglePlacesInput />
+			{/* <GooglePlacesInput /> */}
 			<VStack mx="3" justifyContent={'center'}>
 				<NoLoc />
 			</VStack>

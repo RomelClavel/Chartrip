@@ -4,6 +4,7 @@ import * as ImagePicker from 'expo-image-picker';
 import { Box, Image, Pressable, Text } from 'native-base';
 import ImgIcon from '../../icons/ImgIcon';
 import { COLORS } from '../../styles/Styling';
+import Constants from 'expo-constants';
 
 const ImgInput = ({ control, errors, labelStyles, errorMsg }) => {
 	const [image, setImage] = useState('');
@@ -21,10 +22,10 @@ const ImgInput = ({ control, errors, labelStyles, errorMsg }) => {
 			// let base64Img = `data:image/jpg;base64,${result.base64}`;
 			let base64Img = `data:image/png;base64,${result.base64}`;
 
-			let apiUrl = 'https://api.cloudinary.com/v1_1/dyicovnlz/upload';
+			let apiUrl = Constants.manifest.extra.CLOUDINARY_URL;
 			let data = {
 				file: base64Img,
-				upload_preset: 'ep160veg',
+				upload_preset: Constants.manifest.extra.ep160veg,
 			};
 
 			fetch(apiUrl, {
@@ -37,9 +38,6 @@ const ImgInput = ({ control, errors, labelStyles, errorMsg }) => {
 				.then(async (r) => {
 					let data = await r.text();
 					const parsedData = JSON.parse(data);
-
-					// const imageSet =
-					// 	parsedData.secure_url.slice(0, parsedData.secure_url.length - 3) + 'png';
 					const imageSet = parsedData.secure_url;
 					onChange(imageSet);
 					setImage(imageSet);

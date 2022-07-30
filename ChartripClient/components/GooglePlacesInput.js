@@ -1,5 +1,6 @@
 import React from 'react';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+import Constants from 'expo-constants';
 
 const GooglePlacesInput = () => {
 	return (
@@ -18,7 +19,7 @@ const GooglePlacesInput = () => {
 			}}
 			onFail={(error) => console.error(error)}
 			query={{
-				key: 'AIzaSyBsWEG5VIepvFo_LU0QzBG99bYdWhdaiJA',
+				key: Constants.manifest.extra.GOOGLE_MAPS_API_KEY,
 				language: 'en',
 				type: 'establishment',
 			}}
