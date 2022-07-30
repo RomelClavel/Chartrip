@@ -48,6 +48,7 @@ model Location {
   name String
   latitude Float
   longitude Float
+  address String?
   thumbnail String
   whatToDo String
   type Type
