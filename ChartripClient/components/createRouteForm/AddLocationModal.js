@@ -13,7 +13,30 @@ import React, { useState } from 'react';
 import ImgInput from './ImgInput';
 import TextAreaInput from './TextAreaInput';
 
-const AddLocationModal = ({ isOpen, setIsOpen, locValues, control, errors, handleSubmit }) => {
+const AddLocationModal = ({
+	isOpen,
+	setIsOpen,
+	locValues,
+	setLocValues,
+	control,
+	errors,
+	handleSubmit,
+	defaultLoc,
+	reset,
+	resetImg,
+	setResetImg,
+}) => {
+	const addLocation = () => {
+		console.log(control._formValues);
+		handleSubmit(control._formValues);
+
+		setLocValues({ ...defaultLoc });
+
+		reset();
+		setResetImg(false);
+		setIsOpen(false);
+	};
+	// const [resetImg, setResetImg] = useState(true);
 	return (
 		<Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
 			<Modal.Content width={'100%'}>
@@ -30,18 +53,24 @@ const AddLocationModal = ({ isOpen, setIsOpen, locValues, control, errors, handl
 						<Heading fontSize={'2xl'} fontWeight={'semibold'} alignSelf={'center'}>
 							New Location
 						</Heading>
+
 						<Divider mt={5} mb={2} />
+
 						<Text {...labelStyles}>Name</Text>
 						<Input value={locValues.name} isDisabled={true} size="lg" mt={2} />
 						<Text {...labelStyles}>Address</Text>
 						<Input value={locValues.address} isDisabled={true} size="lg" mt={2} />
-						<ImgInput
-							name={'thumbnail'}
-							labelStyles={labelStyles}
-							errorMsg={errorMsg}
-							control={control}
-							errors={errors}
-						/>
+						{resetImg && (
+							<ImgInput
+								//Does not reset the img state if the component
+								name={'thumbnail'}
+								labelStyles={labelStyles}
+								errorMsg={errorMsg}
+								control={control}
+								errors={errors}
+							/>
+						)}
+
 						<TextAreaInput
 							name={'whatToDo'}
 							labelStyles={labelStyles}
@@ -53,13 +82,7 @@ const AddLocationModal = ({ isOpen, setIsOpen, locValues, control, errors, handl
 						<Pressable
 							bgColor={'primary.500'}
 							title="Submit"
-							onPress={() => {
-								console.log(
-									'-_____________________________________________________________-'
-								);
-								console.log(control._formValues);
-								handleSubmit(control._formValues);
-							}}
+							onPress={addLocation}
 							alignSelf={'center'}
 							rounded={'lg'}
 							mt={6}

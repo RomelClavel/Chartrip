@@ -1,18 +1,19 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import Constants from 'expo-constants';
 import { COLORS } from '../styles/Styling';
 import { Input } from 'native-base';
 
-const GooglePlacesInput = ({ setValue, setLocValues, setIsOpen }) => {
+const GooglePlacesInput = ({ setValue, setLocValues, setIsOpen, setResetImg }) => {
+	const GooglePlacesRef = useRef(null);
 	return (
 		<GooglePlacesAutocomplete
 			textInputProps={{
-				InputComp: googleInput,
-				leftIcon: { type: 'font-awesome', name: 'chevron-left' },
+				// leftIcon: { type: 'font-awesome', name: 'chevron-left' },
 				errorStyle: { color: 'red' },
 			}}
-			placeholder="Search"
+			ref={GooglePlacesRef}
+			placeholder="Add a Location..."
 			onPress={(data, details = null) => {
 				// 'details' is provided when fetchDetails = true
 				const locData = {
@@ -22,7 +23,6 @@ const GooglePlacesInput = ({ setValue, setLocValues, setIsOpen }) => {
 					address: details.formatted_address,
 				};
 
-				// console.log(locData);
 				setLocValues((loc) => {
 					return { ...loc, ...locData };
 				});
@@ -30,6 +30,8 @@ const GooglePlacesInput = ({ setValue, setLocValues, setIsOpen }) => {
 				setValue('latitude', locData.latitude, { shouldValidate: true });
 				setValue('longitude', locData.longitude, { shouldValidate: true });
 				setValue('address', locData.address, { shouldValidate: true });
+				GooglePlacesRef.current.setAddressText('');
+				setResetImg(true);
 				setIsOpen(true);
 			}}
 			onFail={(error) => console.error(error)}
@@ -65,7 +67,7 @@ const GooglePlacesInput = ({ setValue, setLocValues, setIsOpen }) => {
 
 //CHANGE THIS SO THAT I CAN EMPTY IT
 const googleInput = () => {
-	return <Input width={100} value={'aa'} />;
+	return <Input width={100} />;
 };
 
 export default GooglePlacesInput;

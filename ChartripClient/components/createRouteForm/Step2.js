@@ -9,42 +9,19 @@ import {
 	Text,
 	View,
 	VStack,
+	Pressable,
 } from 'native-base';
 import React, { useState } from 'react';
 import ImgIcon from '../../icons/ImgIcon';
 import { COLORS } from '../../styles/Styling';
 import AddIcon from '../../icons/AddIcon';
-import { Pressable } from 'react-native';
 import AddLocationModal from './AddLocationModal';
 import { useForm } from 'react-hook-form';
 import GooglePlacesInput from '../GooglePlacesInput';
 import LocationSmall from '../LocationSmall';
 
-const Step2 = () => {
-	// control._defaultValues.address = 5;
-	// console.log(control._defaultValues.address);
-	const [isOpen, setIsOpen] = useState(false);
-
-	const [locations, setLocations] = useState([]);
-
-	const {
-		control,
-		handleSubmit,
-		formState: { errors },
-		setValue,
-	} = useForm({
-		defaultValues: {
-			name: '',
-			latitude: '',
-			longitude: '',
-			whatToDo: '',
-			address: '',
-			thumbnail: '',
-			position: 1,
-			type: 'RestStop',
-		},
-	});
-	const [locValues, setLocValues] = useState({
+const Step2 = ({ jumpTo }) => {
+	const defaultLoc = {
 		name: '',
 		latitude: '',
 		longitude: '',
@@ -53,12 +30,36 @@ const Step2 = () => {
 		thumbnail: '',
 		position: 1,
 		type: 'RestStop',
+	};
+	const [isOpen, setIsOpen] = useState(false);
+
+	//Array to render the locations
+	const [locations, setLocations] = useState([]);
+
+	//Current Values of the locations being created
+	const [locValues, setLocValues] = useState({
+		...defaultLoc,
 	});
 
-	// const onSubmit = (data) => {
-	// 	console.log(data);
-	// 	jumpTo('second');
-	// };
+	//RESET THE IMG INPUT
+	const [resetImg, setResetImg] = useState(true);
+
+	const {
+		control,
+		// handleSubmit,
+		reset,
+		formState: { errors },
+		setValue,
+	} = useForm({
+		defaultValues: {
+			...defaultLoc,
+		},
+	});
+
+	const onSubmit = (data) => {
+		console.log(locations);
+		jumpTo('third');
+	};
 
 	const removeLoc = (index) => {
 		setLocations(locations.filter((_, i) => index !== i));
@@ -73,20 +74,33 @@ const Step2 = () => {
 				setValue={setValue}
 				setLocValues={setLocValues}
 				setIsOpen={setIsOpen}
+				setResetImg={setResetImg}
 			/>
 
 			{locations.length > 0 ? (
 				<>
 					<Text {...labelStyles}>Locations</Text>
-					<ScrollView height={'1/2'}>
+					<ScrollView height={'1/3'}>
 						{locations.map((location, index) => {
 							return (
 								<Pressable key={index} onPress={() => removeLoc(index)}>
-									<LocationSmall location={location} key={location.id} />
+									<LocationSmall location={location} />
 								</Pressable>
 							);
 						})}
 					</ScrollView>
+					<Pressable
+						bgColor={'primary.500'}
+						title="Submit"
+						onPress={onSubmit}
+						mb={2}
+						alignSelf={'flex-end'}
+						rounded={'lg'}
+					>
+						<Text px={4} py={4} color={'white'} fontSize={'md'} fontWeight={'semibold'}>
+							Next Step
+						</Text>
+					</Pressable>
 				</>
 			) : (
 				<NoLoc setIsOpen={setIsOpen} />
@@ -96,11 +110,14 @@ const Step2 = () => {
 				isOpen={isOpen}
 				setIsOpen={setIsOpen}
 				locValues={locValues}
+				setLocValues={setLocValues}
+				defaultLoc={defaultLoc}
 				control={control}
 				errors={errors}
+				reset={reset}
+				resetImg={resetImg}
+				setResetImg={setResetImg}
 				handleSubmit={(values) => {
-					console.log('a');
-
 					setLocations((prev) => [...prev, values]);
 					// handleSubmit(onSubmit);
 				}}
