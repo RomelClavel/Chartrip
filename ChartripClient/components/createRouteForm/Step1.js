@@ -8,6 +8,7 @@ import CountryStateInput from './CountryStateInput';
 import SliderTimeInput from './SliderTimeInput';
 import ImgInput from './ImgInput';
 import TagInput from './TagInput';
+import { KeyboardAvoidingView } from 'react-native';
 
 const Step1 = ({ jumpTo, setRouteData }) => {
 	const {
@@ -36,70 +37,83 @@ const Step1 = ({ jumpTo, setRouteData }) => {
 
 	return (
 		<View flex={1} style={{ backgroundColor: COLORS.custom.backgroundWhite }}>
-			<ScrollView px={5} scrollEnabled={scroll}>
-				<VStack mx="3">
-					<Heading mt={4} alignSelf={'center'} fontWeight={'semibold'} fontSize={'xl'}>
-						Add your Route details
-					</Heading>
-					<TextInput
-						control={control}
-						name={'name'}
-						errors={errors}
-						labelStyles={labelStyles}
-						errorMsg={errorMsg}
-					/>
-					<CountryStateInput
-						control={control}
-						errors={errors}
-						labelStyles={labelStyles}
-						errorMsg={errorMsg}
-					/>
-					<ImgInput
-						control={control}
-						name={'thumbnail'}
-						errors={errors}
-						labelStyles={labelStyles}
-						errorMsg={errorMsg}
-					/>
-					<TextAreaInput
-						control={control}
-						name={'description'}
-						errors={errors}
-						labelStyles={labelStyles}
-						errorMsg={errorMsg}
-					/>
-					<SliderTimeInput
-						control={control}
-						name={'timeMinMax'}
-						errors={errors}
-						labelStyles={labelStyles}
-						errorMsg={errorMsg}
-						setScroll={setScroll}
-					/>
+			<KeyboardAvoidingView behavior="position" keyboardVerticalOffset={50}>
+				<ScrollView px={5} scrollEnabled={scroll}>
+					<VStack mx="3">
+						<Heading
+							mt={4}
+							alignSelf={'center'}
+							fontWeight={'semibold'}
+							fontSize={'xl'}
+						>
+							Add your Route details
+						</Heading>
+						<TextInput
+							control={control}
+							name={'name'}
+							errors={errors}
+							labelStyles={labelStyles}
+							errorMsg={errorMsg}
+						/>
+						<CountryStateInput
+							control={control}
+							errors={errors}
+							labelStyles={labelStyles}
+							errorMsg={errorMsg}
+						/>
+						<ImgInput
+							control={control}
+							name={'thumbnail'}
+							errors={errors}
+							labelStyles={labelStyles}
+							errorMsg={errorMsg}
+						/>
+						<TextAreaInput
+							control={control}
+							name={'description'}
+							errors={errors}
+							labelStyles={labelStyles}
+							errorMsg={errorMsg}
+						/>
+						<SliderTimeInput
+							control={control}
+							name={'timeMinMax'}
+							errors={errors}
+							labelStyles={labelStyles}
+							errorMsg={errorMsg}
+							setScroll={setScroll}
+						/>
 
-					<TagInput
-						control={control}
-						name={'tags'}
-						errors={errors}
-						labelStyles={labelStyles}
-						errorMsg={errorMsg}
-					/>
+						<TagInput
+							control={control}
+							name={'tags'}
+							errors={errors}
+							labelStyles={labelStyles}
+							errorMsg={errorMsg}
+						/>
 
-					<Divider my={4} />
-					<Pressable
-						bgColor={'primary.500'}
-						title="Submit"
-						onPress={handleSubmit(onSubmit)}
-						mb={10}
-						alignSelf={'flex-end'}
-						rounded={'lg'}
-					>
-						<Text px={4} py={4} color={'white'} fontSize={'md'} fontWeight={'semibold'}>
-							Next Step
-						</Text>
-					</Pressable>
-				</VStack>
-			</ScrollView>
+						<Divider my={4} />
+						<Pressable
+							bgColor={'primary.500'}
+							title="Submit"
+							onPress={handleSubmit(onSubmit)}
+							mb={10}
+							alignSelf={'flex-end'}
+							rounded={'lg'}
+						>
+							<Text
+								px={4}
+								py={4}
+								color={'white'}
+								fontSize={'md'}
+								fontWeight={'semibold'}
+							>
+								Next Step
+							</Text>
+						</Pressable>
+					</VStack>
+				</ScrollView>
+			</KeyboardAvoidingView>
 		</View>
 	);
 };

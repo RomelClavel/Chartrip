@@ -31,7 +31,9 @@ const FollowRoute = ({ route, navigation }) => {
 			return;
 		}
 
-		let { coords } = await Location.getCurrentPositionAsync({});
+		let { coords } = await Location.getCurrentPositionAsync({
+			accuracy: Location.Accuracy.Balanced,
+		});
 		console.log(coords);
 		setUserLocation({ latitude: coords.latitude, longitude: coords.longitude });
 		setCenter(getRouteCenter([userLocation, nextLoc]));
@@ -73,16 +75,16 @@ const FollowRoute = ({ route, navigation }) => {
 		navigation.goBack();
 	};
 
-	if (loading) {
-		return (
-			<VStack justifyContent={'center'} alignItems={'center'} height={'full'}>
-				<Spinner color="primary.500" size={'lg'} />
-				<Heading color={'primary.500'} fontWeight={'semibold'} mt={4}>
-					Loading...
-				</Heading>
-			</VStack>
-		);
-	}
+	// if (loading) {
+	// 	return (
+	// 		<VStack justifyContent={'center'} alignItems={'center'} height={'full'}>
+	// 			<Spinner color="primary.500" size={'lg'} />
+	// 			<Heading color={'primary.500'} fontWeight={'semibold'} mt={4}>
+	// 				Loading...
+	// 			</Heading>
+	// 		</VStack>
+	// 	);
+	// }
 	return (
 		<View>
 			<MapView

@@ -10,6 +10,7 @@ import {
 	VStack,
 } from 'native-base';
 import React, { useState } from 'react';
+import { KeyboardAvoidingView } from 'react-native';
 import ImgInput from './ImgInput';
 import TextAreaInput from './TextAreaInput';
 
@@ -49,55 +50,57 @@ const AddLocationModal = ({
 					mt={2}
 				/>
 				<Modal.Body>
-					<VStack py={4}>
-						<Heading fontSize={'2xl'} fontWeight={'semibold'} alignSelf={'center'}>
-							New Location
-						</Heading>
+					<KeyboardAvoidingView behavior="position" keyboardVerticalOffset={50}>
+						<VStack py={4}>
+							<Heading fontSize={'2xl'} fontWeight={'semibold'} alignSelf={'center'}>
+								New Location
+							</Heading>
 
-						<Divider mt={5} mb={2} />
+							<Divider mt={5} mb={2} />
 
-						<Text {...labelStyles}>Name</Text>
-						<Input value={locValues.name} isDisabled={true} size="lg" mt={2} />
-						<Text {...labelStyles}>Address</Text>
-						<Input value={locValues.address} isDisabled={true} size="lg" mt={2} />
-						{resetImg && (
-							<ImgInput
-								//Does not reset the img state if the component
-								name={'thumbnail'}
+							<Text {...labelStyles}>Name</Text>
+							<Input value={locValues.name} isDisabled={true} size="lg" mt={2} />
+							<Text {...labelStyles}>Address</Text>
+							<Input value={locValues.address} isDisabled={true} size="lg" mt={2} />
+							{resetImg && (
+								<ImgInput
+									//Does not reset the img state if the component
+									name={'thumbnail'}
+									labelStyles={labelStyles}
+									errorMsg={errorMsg}
+									control={control}
+									errors={errors}
+								/>
+							)}
+
+							<TextAreaInput
+								name={'whatToDo'}
 								labelStyles={labelStyles}
 								errorMsg={errorMsg}
 								control={control}
 								errors={errors}
 							/>
-						)}
 
-						<TextAreaInput
-							name={'whatToDo'}
-							labelStyles={labelStyles}
-							errorMsg={errorMsg}
-							control={control}
-							errors={errors}
-						/>
-
-						<Pressable
-							bgColor={'primary.500'}
-							title="Submit"
-							onPress={addLocation}
-							alignSelf={'center'}
-							rounded={'lg'}
-							mt={6}
-						>
-							<Text
-								px={4}
-								py={4}
-								color={'white'}
-								fontSize={'md'}
-								fontWeight={'semibold'}
+							<Pressable
+								bgColor={'primary.500'}
+								title="Submit"
+								onPress={addLocation}
+								alignSelf={'center'}
+								rounded={'lg'}
+								mt={6}
 							>
-								Create
-							</Text>
-						</Pressable>
-					</VStack>
+								<Text
+									px={4}
+									py={4}
+									color={'white'}
+									fontSize={'md'}
+									fontWeight={'semibold'}
+								>
+									Create
+								</Text>
+							</Pressable>
+						</VStack>
+					</KeyboardAvoidingView>
 				</Modal.Body>
 			</Modal.Content>
 		</Modal>
