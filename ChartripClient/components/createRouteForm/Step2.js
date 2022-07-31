@@ -80,8 +80,10 @@ const Step2 = ({ jumpTo, setLocationsData }) => {
 
 			{locations.length > 0 ? (
 				<>
-					<Text {...labelStyles}>Locations</Text>
-					<ScrollView height={'1/3'}>
+					<Text {...labelStyles} mt={12}>
+						Locations
+					</Text>
+					<ScrollView mb={4}>
 						{locations.map((location, index) => {
 							return (
 								<Pressable key={index} onPress={() => removeLoc(index)}>
@@ -94,7 +96,7 @@ const Step2 = ({ jumpTo, setLocationsData }) => {
 						bgColor={'primary.500'}
 						title="Submit"
 						onPress={onSubmit}
-						mb={2}
+						mb={4}
 						alignSelf={'flex-end'}
 						rounded={'lg'}
 					>
@@ -128,7 +130,7 @@ const Step2 = ({ jumpTo, setLocationsData }) => {
 };
 const NoLoc = () => {
 	return (
-		<Pressable>
+		<Pressable mt={'1/2'}>
 			{/* onPress={() => setIsOpen(true)} */}
 			<VStack alignItems={'center'} mb={'1/2'}>
 				<Text color={COLORS.custom.grey} fontWeight={'semibold'} fontSize={'md'}>
