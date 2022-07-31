@@ -37,7 +37,7 @@ const Step1 = ({ jumpTo, setRouteData }) => {
 
 	return (
 		<View flex={1} style={{ backgroundColor: COLORS.custom.backgroundWhite }}>
-			<KeyboardAvoidingView behavior="position" keyboardVerticalOffset={50}>
+			<KeyboardAvoidingView behavior="position">
 				<ScrollView px={5} scrollEnabled={scroll}>
 					<VStack mx="3">
 						<Heading

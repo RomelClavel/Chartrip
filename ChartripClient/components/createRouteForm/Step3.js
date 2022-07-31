@@ -203,6 +203,7 @@ const Step3 = ({ routeData, locationsData }) => {
 					alignSelf={'center'}
 					rounded={'lg'}
 					onPress={createRoute}
+					mt={8}
 				>
 					<Text px={4} py={4} color={'white'} fontSize={'md'} fontWeight={'semibold'}>
 						Create
