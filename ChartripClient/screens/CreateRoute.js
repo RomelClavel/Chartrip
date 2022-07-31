@@ -8,27 +8,42 @@ import Step2 from '../components/createRouteForm/Step2';
 import Step3 from '../components/createRouteForm/Step3';
 
 const CreateRoute = () => {
+	const [routeData, setRouteData] = useState({
+		name: '',
+		country: '',
+		state: '',
+		description: '',
+		timeMinMax: [3, 5],
+		thumbnail: '',
+		tags: [],
+	});
+
+	const [locationsData, setLocationsData] = useState([]);
+
+	const [index, setIndex] = useState(0);
+
+	const [routes] = useState([
+		{ key: 'first', title: 'Route Details' },
+		{ key: 'second', title: 'Add Locations' },
+		{ key: 'third', title: 'Create Route' },
+	]);
+
 	const renderScene = ({ route, jumpTo }) => {
 		switch (route.key) {
 			case 'first':
-				return <Step1 jumpTo={jumpTo} />;
+				return <Step1 jumpTo={jumpTo} setRouteData={setRouteData} />;
 			case 'second':
-				return <Step2 jumpTo={jumpTo} />;
+				return <Step2 jumpTo={jumpTo} setLocationsData={setLocationsData} />;
 			case 'third':
-				return <Step3 jumpTo={jumpTo} />;
+				return (
+					<Step3 jumpTo={jumpTo} routeData={routeData} locationsData={locationsData} />
+				);
 			default:
 				return <Step1 jumpTo={jumpTo} />;
 		}
 	};
 
 	const layout = useWindowDimensions();
-
-	const [index, setIndex] = useState(0);
-	const [routes] = useState([
-		{ key: 'first', title: 'Route Details' },
-		{ key: 'second', title: 'Add Locations' },
-		{ key: 'third', title: 'Create Route' },
-	]);
 
 	const TabBox = (props) => {
 		return (

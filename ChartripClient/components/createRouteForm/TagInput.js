@@ -18,16 +18,16 @@ const TagInput = ({ control, errors, labelStyles, errorMsg }) => {
 	}, []);
 	const [selectedTags, setSelectedTags] = useState([]);
 
-	const selectTag = ({ id }, onChange) => {
-		if (!selectedTags.includes(id)) {
+	const selectTag = (tag, onChange) => {
+		if (!selectedTags.includes(tag)) {
 			setSelectedTags((prev) => {
-				onChange([...prev, id]);
-				return [...prev, id];
+				onChange([...prev, tag]);
+				return [...prev, tag];
 			});
 		} else {
 			// setSelectedTags([...selectedTags.filter((tagId) => tagId !== id)]);
 			setSelectedTags(() => {
-				const newTags = selectedTags.filter((tagId) => tagId !== id);
+				const newTags = selectedTags.filter((t) => t.id !== tag.id);
 				onChange(newTags);
 				return newTags;
 			});
@@ -59,20 +59,16 @@ const TagInput = ({ control, errors, labelStyles, errorMsg }) => {
 										// {...tagIsSelected(tag)}
 
 										bgColor={
-											selectedTags.includes(tag.id) ? 'primary.500' : 'white'
+											selectedTags.includes(tag) ? 'primary.500' : 'white'
 										}
-										variant={
-											selectedTags.includes(tag.id) ? 'solid' : 'outline'
-										}
+										variant={selectedTags.includes(tag) ? 'solid' : 'outline'}
 										borderColor={'primary.500'}
 										borderWidth={2}
 									>
 										<Text
 											p={1}
 											color={
-												selectedTags.includes(tag.id)
-													? 'white'
-													: 'primary.500'
+												selectedTags.includes(tag) ? 'white' : 'primary.500'
 											}
 											fontWeight={'medium'}
 										>

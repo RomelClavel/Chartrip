@@ -20,7 +20,7 @@ import { useForm } from 'react-hook-form';
 import GooglePlacesInput from '../GooglePlacesInput';
 import LocationSmall from '../LocationSmall';
 
-const Step2 = ({ jumpTo }) => {
+const Step2 = ({ jumpTo, setLocationsData }) => {
 	const defaultLoc = {
 		name: '',
 		latitude: '',
@@ -58,6 +58,7 @@ const Step2 = ({ jumpTo }) => {
 
 	const onSubmit = (data) => {
 		console.log(locations);
+		setLocationsData([...locations]);
 		jumpTo('third');
 	};
 

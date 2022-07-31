@@ -9,7 +9,7 @@ import SliderTimeInput from './SliderTimeInput';
 import ImgInput from './ImgInput';
 import TagInput from './TagInput';
 
-const Step1 = ({ jumpTo }) => {
+const Step1 = ({ jumpTo, setRouteData }) => {
 	const {
 		control,
 		handleSubmit,
@@ -20,14 +20,15 @@ const Step1 = ({ jumpTo }) => {
 			country: '',
 			state: '',
 			description: '',
-			timeMinMax: [3, 7],
+			timeMinMax: [3, 5],
 			thumbnail: '',
 			tags: [],
 		},
 	});
 
 	const onSubmit = (data) => {
-		console.log(data);
+		// console.log(data);
+		setRouteData({ ...data });
 		jumpTo('second');
 	};
 
