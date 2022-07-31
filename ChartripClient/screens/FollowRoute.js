@@ -75,16 +75,16 @@ const FollowRoute = ({ route, navigation }) => {
 		navigation.goBack();
 	};
 
-	// if (loading) {
-	// 	return (
-	// 		<VStack justifyContent={'center'} alignItems={'center'} height={'full'}>
-	// 			<Spinner color="primary.500" size={'lg'} />
-	// 			<Heading color={'primary.500'} fontWeight={'semibold'} mt={4}>
-	// 				Loading...
-	// 			</Heading>
-	// 		</VStack>
-	// 	);
-	// }
+	if (loading) {
+		return (
+			<VStack justifyContent={'center'} alignItems={'center'} height={'full'}>
+				<Spinner color="primary.500" size={'lg'} />
+				<Heading color={'primary.500'} fontWeight={'semibold'} mt={4}>
+					Loading...
+				</Heading>
+			</VStack>
+		);
+	}
 	return (
 		<View>
 			<MapView

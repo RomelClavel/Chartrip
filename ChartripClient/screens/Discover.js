@@ -8,17 +8,22 @@ const Discover = ({ navigation }) => {
 	const [routes, setRoutes] = useState([]);
 
 	useEffect(() => {
-		const fetchRoutes = async () => {
-			try {
-				const data = await fetch('http://192.168.1.215:3001/discover/');
-				const { routes } = await data.json();
-				setRoutes(routes);
-			} catch (error) {
-				console.log(error);
-			}
-		};
-		fetchRoutes();
-	}, []);
+		const unsubscribe = navigation.addListener('focus', () => {
+			const fetchRoutes = async () => {
+				try {
+					const data = await fetch('http://192.168.1.215:3001/discover/');
+					const { routes } = await data.json();
+					setRoutes(routes);
+				} catch (error) {
+					console.log(error);
+				}
+			};
+			fetchRoutes();
+		});
+
+		// Return the function to unsubscribe from the event so it gets removed on unmount
+		return unsubscribe;
+	}, [navigation]);
 
 	return (
 		<View backgroundColor={COLORS.custom.backgroundWhite} height={'100%'}>
