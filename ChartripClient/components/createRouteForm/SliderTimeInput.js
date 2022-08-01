@@ -5,7 +5,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { COLORS } from '../../styles/Styling';
 
 const SliderTimeInput = ({ control, errors, labelStyles, errorMsg, setScroll }) => {
-	const [multiSliderValue, setMultiSliderValue] = useState([3, 7]);
+	const [multiSliderValue, setMultiSliderValue] = useState([3, 5]);
 
 	const multiSliderValuesChange = (values) => setMultiSliderValue(values);
 

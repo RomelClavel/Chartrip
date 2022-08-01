@@ -182,7 +182,7 @@ const FollowRoute = ({ route, navigation }) => {
 				px={2}
 			>
 				<Pressable
-					bgColor={'primary.500'}
+					bgColor={'#FF4141'}
 					title="Arrived"
 					alignSelf={'center'}
 					rounded={'lg'}

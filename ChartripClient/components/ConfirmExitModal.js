@@ -6,9 +6,7 @@ const ConfirmExitModal = ({ exit, setExit, navigation }) => {
 	return (
 		<Modal isOpen={exit}>
 			<Modal.Content>
-				{/* <Modal.CloseButton /> */}
 				<Modal.Body alignItems={'center'}>
-					{/* <HStack> */}
 					<Heading
 						opacity={75}
 						textAlign={'center'}
@@ -18,12 +16,8 @@ const ConfirmExitModal = ({ exit, setExit, navigation }) => {
 					>
 						You want to exit the Map?
 					</Heading>
-					{/* <ExitIcon size={80} color={'#FF4141'} /> */}
-					{/* </HStack> */}
-					<HStack
 
-					// style={{ bottom: Constants.statusBarHeight }}
-					>
+					<HStack>
 						<Pressable
 							bgColor={'white'}
 							title="Center"

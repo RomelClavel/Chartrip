@@ -20,6 +20,8 @@ import { useForm } from 'react-hook-form';
 import GooglePlacesInput from '../GooglePlacesInput';
 import LocationSmall from '../LocationSmall';
 import Constants from 'expo-constants';
+import GoogleIcon from '../../icons/GoogleIcon';
+import AlertModal from '../AlertModal';
 
 const Step2 = ({ jumpTo, setLocationsData }) => {
 	const defaultLoc = {
@@ -45,6 +47,8 @@ const Step2 = ({ jumpTo, setLocationsData }) => {
 	//RESET THE IMG INPUT
 	const [resetImg, setResetImg] = useState(true);
 
+	const [alert, setAlert] = useState(false);
+
 	const {
 		control,
 		// handleSubmit,
@@ -57,10 +61,13 @@ const Step2 = ({ jumpTo, setLocationsData }) => {
 		},
 	});
 
-	const onSubmit = (data) => {
-		console.log(locations);
-		setLocationsData([...locations]);
-		jumpTo('third');
+	const onSubmit = () => {
+		if (locations.length >= 2) {
+			setLocationsData([...locations]);
+			jumpTo('third');
+		} else {
+			setAlert(true);
+		}
 	};
 
 	const removeLoc = (index) => {
@@ -76,9 +83,12 @@ const Step2 = ({ jumpTo, setLocationsData }) => {
 				marginBottom: Constants.statusBarHeight,
 			}}
 		>
-			<Heading fontSize={'lg'} fontWeight={'semibold'} alignSelf={'center'} my={4}>
-				Add Locations using Google Places
-			</Heading>
+			<HStack alignSelf={'center'} alignItems={'center'}>
+				<Heading fontSize={'lg'} fontWeight={'semibold'} my={4} mr={2}>
+					Add Locations using Google Places
+				</Heading>
+				<GoogleIcon size={25} />
+			</HStack>
 			<GooglePlacesInput
 				setValue={setValue}
 				setLocValues={setLocValues}
@@ -107,7 +117,7 @@ const Step2 = ({ jumpTo, setLocationsData }) => {
 						bgColor={'primary.500'}
 						title="Submit"
 						onPress={onSubmit}
-						mb={4}
+						mb={8}
 						alignSelf={'flex-end'}
 						rounded={'lg'}
 					>
@@ -115,6 +125,11 @@ const Step2 = ({ jumpTo, setLocationsData }) => {
 							Next Step
 						</Text>
 					</Pressable>
+					<AlertModal
+						open={alert}
+						setAlert={setAlert}
+						errorMsj={'A Route needs to have 2 or more Locations to be Created'}
+					/>
 				</>
 			) : (
 				<NoLoc setIsOpen={setIsOpen} />
@@ -133,7 +148,6 @@ const Step2 = ({ jumpTo, setLocationsData }) => {
 				setResetImg={setResetImg}
 				handleSubmit={(values) => {
 					setLocations((prev) => [...prev, values]);
-					// handleSubmit(onSubmit);
 				}}
 			/>
 		</View>
@@ -142,18 +156,11 @@ const Step2 = ({ jumpTo, setLocationsData }) => {
 const NoLoc = () => {
 	return (
 		<Pressable mt={'1/2'}>
-			{/* onPress={() => setIsOpen(true)} */}
 			<VStack alignItems={'center'} mb={'1/2'}>
 				<Text color={COLORS.custom.grey} fontWeight={'semibold'} fontSize={'md'}>
 					No Locations yet.
 				</Text>
 				<ImgIcon size={220} color={COLORS.custom.grey} />
-				{/* <HStack alignItems={'center'}>
-					<Text color={'primary.500'} fontWeight={'semibold'} fontSize={'lg'} mr={1}>
-						Add One
-					</Text>
-					<AddIcon size={40} color={COLORS.custom.primary} />
-				</HStack> */}
 			</VStack>
 		</Pressable>
 	);

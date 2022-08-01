@@ -1,7 +1,9 @@
 import {
+	AspectRatio,
 	Box,
 	Center,
 	Heading,
+	Image,
 	Modal,
 	PresenceTransition,
 	Pressable,
@@ -18,7 +20,7 @@ const CompletedRouteModal = ({ goToStart, completed }) => {
 			<Modal.Content width={'90%'}>
 				<Modal.Body>
 					<View alignItems={'center'}>
-						<Heading width={'3/4'} textAlign={'center'}>
+						<Heading width={'3/4'} textAlign={'center'} color={'primary.500'}>
 							Thank you for traversing our Route!
 						</Heading>
 						<PresenceTransition
@@ -35,15 +37,20 @@ const CompletedRouteModal = ({ goToStart, completed }) => {
 								},
 							}}
 						>
-							<Box
-								bgColor={'primary.500'}
-								p={10}
-								rounded={'full'}
-								shadow={'3'}
-								my={6}
+							<AspectRatio
+								ratio={{
+									base: 1 / 1,
+									md: 9 / 10,
+								}}
+								width={'5/6'}
+								my={8}
 							>
-								<FollowRouteIcon size={100} color={'white'} />
-							</Box>
+								<Image
+									size={'full'}
+									source={require('../icons/CompletedImg.png')}
+									alt="Alternate Text"
+								/>
+							</AspectRatio>
 						</PresenceTransition>
 						<Pressable
 							bgColor={'primary.500'}

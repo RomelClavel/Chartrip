@@ -13,6 +13,7 @@ import React, { useState } from 'react';
 import { KeyboardAvoidingView } from 'react-native';
 import ImgInput from './ImgInput';
 import TextAreaInput from './TextAreaInput';
+import TextInput from './TextInput';
 
 const AddLocationModal = ({
 	isOpen,
@@ -60,6 +61,14 @@ const AddLocationModal = ({
 
 							<Text {...labelStyles}>Name</Text>
 							<Input value={locValues.name} isDisabled={true} size="lg" mt={2} />
+							{/* <TextInput
+								name={'whatToDo'}
+								labelStyles={labelStyles}
+								errorMsg={errorMsg}
+								control={control}
+								errors={errors}
+							/> */}
+
 							<Text {...labelStyles}>Address</Text>
 							<Input value={locValues.address} isDisabled={true} size="lg" mt={2} />
 							{resetImg && (
