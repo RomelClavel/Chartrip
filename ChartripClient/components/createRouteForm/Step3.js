@@ -24,11 +24,14 @@ import LocationModal from '../LocationModal';
 import LocationSmall from '../LocationSmall';
 import Constants from 'expo-constants';
 import formatRouteData from '../../helpers/formatRouteData';
+import SuccessModal from '../SuccessModal';
 
 const Step3 = ({ routeData, locationsData, navigation }) => {
 	if (locationsData.length === 0) {
 		return <></>;
 	}
+
+	const [successModal, setSuccessModal] = useState(false);
 
 	const createRoute = () => {
 		const data = formatRouteData(routeData, locationsData);
@@ -44,10 +47,7 @@ const Step3 = ({ routeData, locationsData, navigation }) => {
 				console.log({
 					json,
 				});
-				navigation.reset({
-					index: 0,
-					routes: [{ name: 'Discover' }],
-				});
+				setSuccessModal(true);
 			})
 			.catch((err) => {
 				console.log({
@@ -74,10 +74,10 @@ const Step3 = ({ routeData, locationsData, navigation }) => {
 			</Heading>
 			<Divider mb={6} mt={4} width={'90%'} alignSelf={'center'} />
 
-			<VStack roundedTop={'xl'} alignItems={'center'} px={4}>
+			<VStack alignItems={'center'} px={4}>
 				<HStack mb={6} width={'90%'} justifyContent={'space-between'} alignItems={'center'}>
 					<VStack>
-						<Text fontSize={'lg'} fontWeight={'bold'}>
+						<Text fontSize={'xl'} fontWeight={'bold'}>
 							{routeData.name}
 						</Text>
 						<HStack alignItems={'center'} opacity={60}>
@@ -120,12 +120,12 @@ const Step3 = ({ routeData, locationsData, navigation }) => {
 				</Box>
 				<VStack width={'90%'} mt={4}>
 					<Text {...textSectionStyles}>Details</Text>
-					<Text opacity={80} lineHeight={0} ml={0.5}>
+					<Text opacity={80} lineHeight={0}>
 						{routeData.description}
 					</Text>
 				</VStack>
 
-				<VStack width={'90%'} mt={4}>
+				<VStack width={'90%'}>
 					<Text {...textSectionStyles}>Tags</Text>
 					<HStack flexWrap={'wrap'}>
 						{routeData.tags.map((tag, index) => {
@@ -137,13 +137,15 @@ const Step3 = ({ routeData, locationsData, navigation }) => {
 									rounded={'lg'}
 									key={index}
 								>
-									<Text color={'white'}>{tag.title}</Text>
+									<Text color={'white'} p={1}>
+										{tag.title}
+									</Text>
 								</Badge>
 							);
 						})}
 					</HStack>
 				</VStack>
-				<VStack width={'90%'} mt={4}>
+				<VStack width={'90%'}>
 					<Text {...textSectionStyles}>Locations</Text>
 					{locationsData.map((location, index) => {
 						return (
@@ -161,7 +163,7 @@ const Step3 = ({ routeData, locationsData, navigation }) => {
 						);
 					})}
 				</VStack>
-				<VStack width={'90%'} mt={4}>
+				<VStack width={'90%'}>
 					<Text {...textSectionStyles}>Map</Text>
 
 					<MapView
@@ -202,13 +204,15 @@ const Step3 = ({ routeData, locationsData, navigation }) => {
 						})}
 					</MapView>
 				</VStack>
+
+				<Divider my={4} width={'90%'} />
 				<Pressable
 					bgColor={'primary.500'}
 					mb={10}
 					alignSelf={'center'}
 					rounded={'lg'}
 					onPress={createRoute}
-					mt={8}
+					// mt={8}
 				>
 					<Text px={4} py={4} color={'white'} fontSize={'md'} fontWeight={'semibold'}>
 						Create
@@ -220,6 +224,18 @@ const Step3 = ({ routeData, locationsData, navigation }) => {
 				location={selectedLocation.location}
 				setSelectedLocation={setSelectedLocation}
 			/>
+			<SuccessModal
+				closeModal={() => {
+					setSuccessModal(false);
+					navigation.reset({
+						index: 0,
+						routes: [{ name: 'Discover' }],
+					});
+				}}
+				open={successModal}
+				img={require('../../icons/CreateImgSuccess.png')}
+				text={'Thank you for creating this Route!'}
+			/>
 		</ScrollView>
 	);
 };
@@ -227,7 +243,7 @@ const Step3 = ({ routeData, locationsData, navigation }) => {
 const textSectionStyles = {
 	color: 'dark.200',
 	fontWeight: 'semibold',
-	my: '1',
+	my: '2',
 };
 
 export default Step3;

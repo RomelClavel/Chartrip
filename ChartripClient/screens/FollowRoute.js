@@ -18,7 +18,7 @@ import Constants from 'expo-constants';
 import { COLORS } from '../styles/Styling';
 import getRouteCenter from '../helpers/getRouteCenter';
 import FollowLocModal from '../components/FollowLocModal';
-import CompletedRouteModal from '../components/CompletedRouteModal';
+import SuccessModal from '../components/SuccessModal';
 import ConfirmExitModal from '../components/ConfirmExitModal';
 
 const FollowRoute = ({ route, navigation }) => {
@@ -141,7 +141,7 @@ const FollowRoute = ({ route, navigation }) => {
 						}}
 						apikey={Constants.manifest.extra.GOOGLE_MAPS_API_KEY} // insert your API Key here
 						strokeWidth={4}
-						strokeColor={COLORS.custom.primary}
+						strokeColor={COLORS.custom.primaryDark}
 						mode={'WALKING'}
 					/>
 				)}
@@ -154,6 +154,7 @@ const FollowRoute = ({ route, navigation }) => {
 				/>
 
 				<Marker
+					image={require('../icons/MarkerUser.png')}
 					coordinate={{
 						latitude: userLocation.latitude,
 						longitude: userLocation.longitude,
@@ -231,7 +232,12 @@ const FollowRoute = ({ route, navigation }) => {
 				setLocationModal={setLocationModal}
 				goToNextLocation={goToNextLocation}
 			/>
-			<CompletedRouteModal completed={completed} goToStart={goToStart} />
+			<SuccessModal
+				open={completed}
+				closeModal={() => goToStart()}
+				img={require('../icons/CompletedImg.png')}
+				text={'Thank you for traversing our Route!'}
+			/>
 			<ConfirmExitModal exit={exit} setExit={setExit} navigation={navigation} />
 		</View>
 	);

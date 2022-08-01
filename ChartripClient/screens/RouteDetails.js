@@ -70,10 +70,11 @@ const RouteDetails = ({ route, navigation }) => {
 				</Box>
 				<VStack
 					bgColor={'white'}
-					mt={8}
+					mt={6}
 					py={5}
 					roundedTop={'xl'}
 					alignItems={'center'}
+					shadow={'9'}
 					style={{ paddingBottom: Constants.statusBarHeight * 2 }}
 				>
 					<HStack width={'90%'} justifyContent={'space-between'} alignItems={'center'}>
@@ -100,7 +101,7 @@ const RouteDetails = ({ route, navigation }) => {
 							)}`}</Text>
 						</HStack>
 					</HStack>
-					<Divider my="2" width={'90%'} />
+					<Divider my="4" width={'90%'} />
 					<VStack width={'90%'}>
 						<Text {...textSectionStyles}>Details</Text>
 						<Text opacity={80} lineHeight={0} ml={0.5}>
@@ -237,6 +238,6 @@ const RouteDetails = ({ route, navigation }) => {
 const textSectionStyles = {
 	color: 'dark.200',
 	fontWeight: 'semibold',
-	my: '1',
+	my: '2',
 };
 export default RouteDetails;

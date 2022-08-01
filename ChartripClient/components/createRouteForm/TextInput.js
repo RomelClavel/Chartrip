@@ -19,7 +19,6 @@ const TextInput = ({ name, control, errors, labelStyles, errorMsg }) => {
 						onChangeText={onChange}
 						value={value}
 						size="lg"
-						mt={2}
 					/>
 				)}
 			/>

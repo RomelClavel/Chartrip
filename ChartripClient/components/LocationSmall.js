@@ -16,12 +16,14 @@ const LocationSmall = ({ location }) => {
 		>
 			<VStack pl={6} width={'50%'} alignItems={''}>
 				<VStack height={'40%'}>
-					<Text fontSize={'md'} fontWeight={'semibold'}>
+					<Text fontSize={'md'} fontWeight={'semibold'} isTruncated={true}>
 						{name}
 					</Text>
-					<Text opacity={70}>{address ? address : 'Short Address'}</Text>
+					<Text isTruncated={true} opacity={70}>
+						{address ? address : 'Short Address'}
+					</Text>
 				</VStack>
-				<Text opacity={70} fontSize="xs" numberOfLines={2} width={'95%'}>
+				<Text opacity={70} fontSize="xs" numberOfLines={2} width={'95%'} isTruncated={true}>
 					{whatToDo}
 				</Text>
 			</VStack>

@@ -60,7 +60,7 @@ const AddLocationModal = ({
 							<Divider mt={5} mb={2} />
 
 							<Text {...labelStyles}>Name</Text>
-							<Input value={locValues.name} isDisabled={true} size="lg" mt={2} />
+							<Input value={locValues.name} isDisabled={true} size="lg" />
 							{/* <TextInput
 								name={'whatToDo'}
 								labelStyles={labelStyles}
@@ -70,7 +70,7 @@ const AddLocationModal = ({
 							/> */}
 
 							<Text {...labelStyles}>Address</Text>
-							<Input value={locValues.address} isDisabled={true} size="lg" mt={2} />
+							<Input value={locValues.address} isDisabled={true} size="lg" />
 							{resetImg && (
 								<ImgInput
 									//Does not reset the img state if the component
@@ -88,9 +88,7 @@ const AddLocationModal = ({
 								errorMsg={errorMsg}
 								control={control}
 								errors={errors}
-								placeholder={
-									'What are some activities you recommend doing in this place'
-								}
+								placeholder={'Some activities you recommend doing in this place...'}
 							/>
 
 							<Pressable
@@ -122,8 +120,7 @@ const AddLocationModal = ({
 const labelStyles = {
 	fontWeight: 'medium',
 	opacity: 80,
-	mt: '2',
-	mb: '1',
+	my: '3',
 };
 const errorMsg = {
 	fontWeight: 'medium',

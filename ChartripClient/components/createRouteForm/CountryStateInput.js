@@ -49,7 +49,6 @@ const CountryStateInput = ({ control, errors, labelStyles, errorMsg }) => {
 								_selectedItem={{
 									bg: 'primary.400',
 								}}
-								mt={1}
 								onValueChange={(newValue) => {
 									fetchStates(newValue);
 									onChange(newValue);
@@ -89,7 +88,6 @@ const CountryStateInput = ({ control, errors, labelStyles, errorMsg }) => {
 								_selectedItem={{
 									bg: 'primary.400',
 								}}
-								mt={1}
 								onValueChange={onChange}
 								height={10}
 								fontSize={'md'}

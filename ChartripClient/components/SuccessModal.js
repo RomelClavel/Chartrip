@@ -14,14 +14,14 @@ import {
 import React from 'react';
 import FollowRouteIcon from '../icons/FollowRouteIcon';
 
-const CompletedRouteModal = ({ goToStart, completed }) => {
+const SuccessModal = ({ closeModal, open, img, text }) => {
 	return (
-		<Modal isOpen={completed} size={'full'}>
+		<Modal isOpen={open} size={'full'}>
 			<Modal.Content width={'90%'}>
 				<Modal.Body>
 					<View alignItems={'center'}>
 						<Heading width={'3/4'} textAlign={'center'} color={'primary.500'}>
-							Thank you for traversing our Route!
+							{text}
 						</Heading>
 						<PresenceTransition
 							visible={true}
@@ -45,11 +45,7 @@ const CompletedRouteModal = ({ goToStart, completed }) => {
 								width={'5/6'}
 								my={8}
 							>
-								<Image
-									size={'full'}
-									source={require('../icons/CompletedImg.png')}
-									alt="Alternate Text"
-								/>
+								<Image size={'full'} source={img} alt="Alternate Text" />
 							</AspectRatio>
 						</PresenceTransition>
 						<Pressable
@@ -57,7 +53,7 @@ const CompletedRouteModal = ({ goToStart, completed }) => {
 							title="Arrived"
 							rounded={'lg'}
 							mb={2}
-							onPress={goToStart}
+							onPress={closeModal}
 						>
 							<Text
 								px={4}
@@ -76,4 +72,4 @@ const CompletedRouteModal = ({ goToStart, completed }) => {
 	);
 };
 
-export default CompletedRouteModal;
+export default SuccessModal;

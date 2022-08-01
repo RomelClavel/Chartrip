@@ -49,7 +49,7 @@ const Step1 = ({ jumpTo, setRouteData }) => {
 				<ScrollView px={5} scrollEnabled={scroll}>
 					<VStack mx="3">
 						<Heading
-							mt={4}
+							mt={5}
 							alignSelf={'center'}
 							fontWeight={'semibold'}
 							fontSize={'xl'}
@@ -133,8 +133,7 @@ const Step1 = ({ jumpTo, setRouteData }) => {
 const labelStyles = {
 	fontWeight: 'medium',
 	opacity: 80,
-	mt: '2',
-	mb: '1',
+	my: '3',
 };
 const errorMsg = {
 	fontWeight: 'medium',

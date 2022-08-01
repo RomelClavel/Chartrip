@@ -1,4 +1,4 @@
-import { Badge, HStack, Pressable, Text } from 'native-base';
+import { Badge, HStack, Pressable, Skeleton, Text } from 'native-base';
 import React, { useEffect, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 
@@ -43,42 +43,54 @@ const TagInput = ({ control, errors, labelStyles, errorMsg }) => {
 					required: true,
 				}}
 				render={({ field: { onChange, onBlur, value } }) => (
-					<HStack flexWrap={'wrap'} mt={2}>
-						{tags.map((tag, index) => {
-							return (
-								<Pressable
-									key={index}
-									onPress={() => {
-										selectTag(tag, onChange);
-									}}
-								>
-									<Badge
-										mx={1}
-										mb={2}
-										rounded={'lg'}
-										// {...tagIsSelected(tag)}
-
-										bgColor={
-											selectedTags.includes(tag) ? 'primary.500' : 'white'
-										}
-										variant={selectedTags.includes(tag) ? 'solid' : 'outline'}
-										borderColor={'primary.500'}
-										borderWidth={2}
-									>
-										<Text
-											p={1}
-											color={
-												selectedTags.includes(tag) ? 'white' : 'primary.500'
-											}
-											fontWeight={'medium'}
+					<>
+						{tags.length === 0 ? (
+							<TagsSkeleton />
+						) : (
+							<HStack flexWrap={'wrap'} mt={2}>
+								{tags.map((tag, index) => {
+									return (
+										<Pressable
+											key={index}
+											onPress={() => {
+												selectTag(tag, onChange);
+											}}
 										>
-											{tag.title}
-										</Text>
-									</Badge>
-								</Pressable>
-							);
-						})}
-					</HStack>
+											<Badge
+												mx={1}
+												mb={2}
+												rounded={'lg'}
+												// {...tagIsSelected(tag)}
+
+												bgColor={
+													selectedTags.includes(tag)
+														? 'primary.500'
+														: 'white'
+												}
+												variant={
+													selectedTags.includes(tag) ? 'solid' : 'outline'
+												}
+												borderColor={'primary.500'}
+												borderWidth={2}
+											>
+												<Text
+													p={1}
+													color={
+														selectedTags.includes(tag)
+															? 'white'
+															: 'primary.500'
+													}
+													fontWeight={'medium'}
+												>
+													{tag.title}
+												</Text>
+											</Badge>
+										</Pressable>
+									);
+								})}
+							</HStack>
+						)}
+					</>
 				)}
 			/>
 			{errors.tags && <Text {...errorMsg}>This is required.</Text>}
@@ -86,4 +98,24 @@ const TagInput = ({ control, errors, labelStyles, errorMsg }) => {
 	);
 };
 
+const TagsSkeleton = () => {
+	const numSkeleton = Array.from(Array(10).keys());
+	const getRandomNumberBetween = () => {
+		return Math.floor(Math.random() * (80 - 62 + 1) + 62);
+	};
+	return (
+		<HStack flexWrap={'wrap'} mt={2}>
+			{numSkeleton.map((key) => (
+				<Skeleton
+					isLoaded={false}
+					style={{ width: getRandomNumberBetween() }}
+					rounded={'lg'}
+					mx={1}
+					mb={2}
+					key={key}
+				/>
+			))}
+		</HStack>
+	);
+};
 export default TagInput;

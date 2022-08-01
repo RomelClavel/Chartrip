@@ -18,7 +18,6 @@ const TextAreaInput = ({ name, control, errors, labelStyles, errorMsg, placehold
 						onChangeText={onChange}
 						value={value}
 						size="lg"
-						mt={2}
 						placeholder={placeholder}
 					/>
 				)}
