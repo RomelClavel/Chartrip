@@ -20,7 +20,7 @@ const FollowLocModal = ({ locationModal, setLocationModal, goToNextLocation }) =
 	};
 	return (
 		<Modal isOpen={open} onClose={closeModal} size={'full'}>
-			<Modal.Content width={'90%'}>
+			<Modal.Content width={'90%'} py={1}>
 				<Modal.CloseButton
 					fill={'white'}
 					bgColor={'white'}

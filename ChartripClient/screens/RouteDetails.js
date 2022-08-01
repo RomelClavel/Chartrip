@@ -67,19 +67,6 @@ const RouteDetails = ({ route, navigation }) => {
 							mx={3}
 						/>
 					</AspectRatio>
-					<Pressable
-						onPress={() => {
-							navigation.goBack();
-						}}
-						position={'absolute'}
-						top={5}
-						left={8}
-						bgColor={'black:alpha.30'}
-						p={1.5}
-						rounded={4}
-					>
-						<ArrowBackIcon color={'white'} size={5} />
-					</Pressable>
 				</Box>
 				<VStack
 					bgColor={'white'}
@@ -230,6 +217,19 @@ const RouteDetails = ({ route, navigation }) => {
 					<FollowRouteIcon size={32} color={'white'} />
 				</HStack>
 			</Pressable>
+			<Pressable
+				onPress={() => {
+					navigation.goBack();
+				}}
+				position={'absolute'}
+				style={{ top: Constants.statusBarHeight + 16 }}
+				left={6}
+				bgColor={'black:alpha.40'}
+				p={1.5}
+				rounded={4}
+			>
+				<ArrowBackIcon color={'white'} size={5} />
+			</Pressable>
 		</>
 	);
 };
@@ -240,29 +240,3 @@ const textSectionStyles = {
 	my: '1',
 };
 export default RouteDetails;
-
-// Geolocation.getCurrentPosition(
-// 	(position) => {
-// 		console.log(position);
-// 	},
-// 	(error) => {
-// 		// See error code charts below.
-// 		console.log(error.code, error.message);
-// 	},
-// 	{ enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
-// );
-
-// (async () => {
-// 	let { status } = await Location.requestForegroundPermissionsAsync();
-// 	if (status !== 'granted') {
-// 		setErrorMsg('Permission to access location was denied');
-// 		return;
-// 	}
-// 	let location = await Location.getCurrentPositionAsync({});
-// 	console.log(location);
-// 	setUserLocation({
-// 		loading: false,
-// 		latitude: location.coords.latitude,
-// 		longitude: location.coords.longitude,
-// 	});
-// })();

@@ -22,7 +22,7 @@ export default function App() {
 	return (
 		<NavigationContainer>
 			{/* <SafeAreaView style={{ flex: 0, backgroundColor: COLORS.custom.backgroundWhite }} /> */}
-			<StatusBar barStyle={'dark-content'} />
+			<StatusBar barStyle={'dark-content'} backgroundColor={COLORS.custom.backgroundWhite} />
 			{/* <SafeAreaView
 				style={{
 					flex: 1,

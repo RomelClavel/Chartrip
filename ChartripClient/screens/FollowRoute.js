@@ -19,6 +19,7 @@ import { COLORS } from '../styles/Styling';
 import getRouteCenter from '../helpers/getRouteCenter';
 import FollowLocModal from '../components/FollowLocModal';
 import CompletedRouteModal from '../components/CompletedRouteModal';
+import ConfirmExitModal from '../components/ConfirmExitModal';
 
 const FollowRoute = ({ route, navigation }) => {
 	const { locations } = route.params;
@@ -26,6 +27,8 @@ const FollowRoute = ({ route, navigation }) => {
 
 	const [nextLoc, setNextLoc] = useState(locations[0]);
 	const [locationModal, setLocationModal] = useState({ open: false, location: {} });
+
+	const [exit, setExit] = useState(false);
 
 	const [userLocation, setUserLocation] = useState({
 		latitude: 41.394989175959694,
@@ -166,11 +169,12 @@ const FollowRoute = ({ route, navigation }) => {
 			>
 				<NextLocation location={nextLoc} />
 			</Box>
+
 			<HStack
 				position={'absolute'}
 				alignSelf={'center'}
 				style={{ bottom: Constants.statusBarHeight }}
-				width={'3/4'}
+				width={'5/6'}
 				justifyContent={'space-around'}
 				bgColor={'white'}
 				py={2}
@@ -178,15 +182,17 @@ const FollowRoute = ({ route, navigation }) => {
 				px={2}
 			>
 				<Pressable
-					onPress={() => {
-						navigation.goBack();
-					}}
 					bgColor={'primary.500'}
-					p={1.5}
-					rounded={'lg'}
+					title="Arrived"
 					alignSelf={'center'}
+					rounded={'lg'}
+					onPress={() => {
+						setExit(true);
+					}}
 				>
-					<ArrowBackIcon color={'white'} size={6} />
+					<Text px={6} py={4} color={'white'} fontSize={'md'} fontWeight={'semibold'}>
+						Exit
+					</Text>
 				</Pressable>
 				<Pressable
 					bgColor={'white'}
@@ -219,12 +225,14 @@ const FollowRoute = ({ route, navigation }) => {
 					</Text>
 				</Pressable>
 			</HStack>
+
 			<FollowLocModal
 				locationModal={locationModal}
 				setLocationModal={setLocationModal}
 				goToNextLocation={goToNextLocation}
 			/>
 			<CompletedRouteModal completed={completed} goToStart={goToStart} />
+			<ConfirmExitModal exit={exit} setExit={setExit} navigation={navigation} />
 		</View>
 	);
 };
