@@ -2,7 +2,7 @@ import { AspectRatio, Box, HStack, Image, Pressable, Text, VStack } from 'native
 import React from 'react';
 
 const LocationSmall = ({ location }) => {
-	const { name, thumbnail, whatToDo } = location;
+	const { name, thumbnail, whatToDo, address } = location;
 
 	return (
 		<HStack
@@ -19,7 +19,7 @@ const LocationSmall = ({ location }) => {
 					<Text fontSize={'md'} fontWeight={'semibold'}>
 						{name}
 					</Text>
-					<Text opacity={70}>Temp Address</Text>
+					<Text opacity={70}>{address ? address : 'Short Address'}</Text>
 				</VStack>
 				<Text opacity={70} fontSize="xs" numberOfLines={2} width={'95%'}>
 					{whatToDo}

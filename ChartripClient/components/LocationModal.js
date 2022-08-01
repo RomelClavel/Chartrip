@@ -3,7 +3,7 @@ import React from 'react';
 import MapView, { Marker } from 'react-native-maps';
 
 const LocationModal = ({ location, isOpen, setSelectedLocation }) => {
-	const { name, latitude, longitude, whatToDo, thumbnail } = location;
+	const { name, latitude, longitude, whatToDo, thumbnail, address } = location;
 	const lorem = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris pretium elementum magna, mattis accumsan justo euismod nec.
     Aliquam et finibus tortor, ac laoreet tellus. Nunc at purus et ipsum luctus efficitur. Pellentesque commodo, augue nec tempus blandit.`;
 	return (
@@ -22,7 +22,7 @@ const LocationModal = ({ location, isOpen, setSelectedLocation }) => {
 					opacity={70}
 					rounded={'full'}
 					mr={2}
-					mt={2}
+					mt={6}
 				/>
 				<Modal.Body>
 					<VStack alignItems={'center'}>
@@ -46,7 +46,7 @@ const LocationModal = ({ location, isOpen, setSelectedLocation }) => {
 						<Heading mt={4} fontWeight={'semibold'}>
 							{name}
 						</Heading>
-						<Text opacity={60}> Short Address </Text>
+						<Text opacity={60}> {address ? address : 'Short Address'} </Text>
 						<Divider my={4} />
 						<Text
 							fontWeight={'semibold'}
@@ -68,8 +68,8 @@ const LocationModal = ({ location, isOpen, setSelectedLocation }) => {
 								initialRegion={{
 									latitude: latitude,
 									longitude: longitude,
-									latitudeDelta: 0.0622,
-									longitudeDelta: 0.0121,
+									latitudeDelta: 0.0065,
+									longitudeDelta: 0.0065,
 								}}
 							>
 								<Marker

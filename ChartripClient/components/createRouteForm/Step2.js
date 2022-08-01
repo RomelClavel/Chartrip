@@ -19,6 +19,7 @@ import AddLocationModal from './AddLocationModal';
 import { useForm } from 'react-hook-form';
 import GooglePlacesInput from '../GooglePlacesInput';
 import LocationSmall from '../LocationSmall';
+import Constants from 'expo-constants';
 
 const Step2 = ({ jumpTo, setLocationsData }) => {
 	const defaultLoc = {
@@ -67,7 +68,14 @@ const Step2 = ({ jumpTo, setLocationsData }) => {
 	};
 
 	return (
-		<View flex={1} px={8} style={{ backgroundColor: COLORS.custom.backgroundWhite }}>
+		<View
+			flex={1}
+			px={8}
+			style={{
+				backgroundColor: COLORS.custom.backgroundWhite,
+				marginBottom: Constants.statusBarHeight,
+			}}
+		>
 			<Heading fontSize={'lg'} fontWeight={'semibold'} alignSelf={'center'} my={4}>
 				Add Locations using Google Places
 			</Heading>

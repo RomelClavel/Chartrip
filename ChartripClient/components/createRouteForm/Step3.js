@@ -25,14 +25,13 @@ import LocationSmall from '../LocationSmall';
 import Constants from 'expo-constants';
 import formatRouteData from '../../helpers/formatRouteData';
 
-const Step3 = ({ routeData, locationsData }) => {
+const Step3 = ({ routeData, locationsData, navigation }) => {
 	if (locationsData.length === 0) {
 		return <></>;
 	}
 
 	const createRoute = () => {
 		const data = formatRouteData(routeData, locationsData);
-		console.log(data);
 		fetch('http://192.168.1.215:3001/new/route', {
 			body: JSON.stringify(data),
 			method: 'POST',
@@ -44,6 +43,10 @@ const Step3 = ({ routeData, locationsData }) => {
 			.then((json) => {
 				console.log({
 					json,
+				});
+				navigation.reset({
+					index: 0,
+					routes: [{ name: 'Discover' }],
 				});
 			})
 			.catch((err) => {
@@ -61,11 +64,13 @@ const Step3 = ({ routeData, locationsData }) => {
 	const directionsArray = createMapDirections(locationsData);
 	const routeCenter = getRouteCenter(locationsData);
 	return (
-		<ScrollView backgroundColor={COLORS.custom.backgroundWhite}>
+		<ScrollView
+			backgroundColor={COLORS.custom.backgroundWhite}
+			style={{ marginBottom: Constants.statusBarHeight }}
+		>
 			{/* See if I can separate this to another component*/}
 			<Heading mt={6} alignSelf={'center'} fontSize={'xl'} fontWeight={'semibold'}>
-				{' '}
-				Here is your New Route{' '}
+				Here is your New Route
 			</Heading>
 			<Divider mb={6} mt={4} width={'90%'} alignSelf={'center'} />
 

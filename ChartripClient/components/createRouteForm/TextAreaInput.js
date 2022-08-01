@@ -2,7 +2,7 @@ import { Text, TextArea } from 'native-base';
 import React from 'react';
 import { Controller } from 'react-hook-form';
 
-const TextAreaInput = ({ name, control, errors, labelStyles, errorMsg }) => {
+const TextAreaInput = ({ name, control, errors, labelStyles, errorMsg, placeholder }) => {
 	return (
 		<>
 			<Text {...labelStyles}> {name.charAt(0).toUpperCase() + name.slice(1)}</Text>
@@ -19,6 +19,7 @@ const TextAreaInput = ({ name, control, errors, labelStyles, errorMsg }) => {
 						value={value}
 						size="lg"
 						mt={2}
+						placeholder={placeholder}
 					/>
 				)}
 			/>

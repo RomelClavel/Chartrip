@@ -13,7 +13,14 @@ const TextInput = ({ name, control, errors, labelStyles, errorMsg }) => {
 					required: true,
 				}}
 				render={({ field: { onChange, onBlur, value } }) => (
-					<Input onBlur={onBlur} onChangeText={onChange} value={value} size="lg" mt={2} />
+					<Input
+						placeholder="Route Name"
+						onBlur={onBlur}
+						onChangeText={onChange}
+						value={value}
+						size="lg"
+						mt={2}
+					/>
 				)}
 			/>
 			{errors[name] && <Text {...errorMsg}>This is required.</Text>}

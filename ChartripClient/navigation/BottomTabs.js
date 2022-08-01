@@ -8,6 +8,7 @@ import DiscoverStack from './DiscoverStack';
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import hideBottomBar from '../helpers/hideBottomBar';
 import Constants from 'expo-constants';
+import CreateStack from './CreateStack';
 
 const Tab = createBottomTabNavigator();
 
@@ -47,7 +48,20 @@ const BottomTabs = () => {
 				name="Discover"
 				component={DiscoverStack}
 			/>
-			<Tab.Screen name="Create" component={CreateRoute} />
+			<Tab.Screen
+				options={({ route }) => ({
+					tabBarStyle: ((route) => {
+						const routeName = getFocusedRouteNameFromRoute(route) ?? '';
+						if (hideBottomBar(routeName)) {
+							return { display: 'none' };
+						} else {
+							return { backgroundColor: 'white', height: 85 };
+						}
+					})(route),
+				})}
+				name="Create"
+				component={CreateStack}
+			/>
 		</Tab.Navigator>
 	);
 };

@@ -8,6 +8,8 @@ import CountryStateInput from './CountryStateInput';
 import SliderTimeInput from './SliderTimeInput';
 import ImgInput from './ImgInput';
 import TagInput from './TagInput';
+import Constants from 'expo-constants';
+
 import { KeyboardAvoidingView } from 'react-native';
 
 const Step1 = ({ jumpTo, setRouteData }) => {
@@ -36,7 +38,13 @@ const Step1 = ({ jumpTo, setRouteData }) => {
 	const [scroll, setScroll] = useState(true);
 
 	return (
-		<View flex={1} style={{ backgroundColor: COLORS.custom.backgroundWhite }}>
+		<View
+			flex={1}
+			style={{
+				backgroundColor: COLORS.custom.backgroundWhite,
+				marginBottom: Constants.statusBarHeight,
+			}}
+		>
 			<View behavior="position">
 				<ScrollView px={5} scrollEnabled={scroll}>
 					<VStack mx="3">
@@ -55,6 +63,7 @@ const Step1 = ({ jumpTo, setRouteData }) => {
 							labelStyles={labelStyles}
 							errorMsg={errorMsg}
 						/>
+
 						<CountryStateInput
 							control={control}
 							errors={errors}
@@ -74,6 +83,7 @@ const Step1 = ({ jumpTo, setRouteData }) => {
 							errors={errors}
 							labelStyles={labelStyles}
 							errorMsg={errorMsg}
+							placeholder={'Some details about your route...'}
 						/>
 						<SliderTimeInput
 							control={control}
@@ -90,7 +100,7 @@ const Step1 = ({ jumpTo, setRouteData }) => {
 							labelStyles={labelStyles}
 							errorMsg={errorMsg}
 						/>
-						<Divider my={4} />
+						<Divider my={6} />
 						<Pressable title="Submit" onPress={handleSubmit(onSubmit)}>
 							{({ isPressed }) => {
 								return (

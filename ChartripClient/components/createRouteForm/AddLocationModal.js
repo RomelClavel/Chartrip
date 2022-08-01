@@ -79,6 +79,9 @@ const AddLocationModal = ({
 								errorMsg={errorMsg}
 								control={control}
 								errors={errors}
+								placeholder={
+									'What are some activities you recommend doing in this place'
+								}
 							/>
 
 							<Pressable

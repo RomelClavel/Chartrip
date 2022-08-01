@@ -8,8 +8,7 @@ import Step2 from '../components/createRouteForm/Step2';
 import Step3 from '../components/createRouteForm/Step3';
 import Constants from 'expo-constants';
 
-const CreateRoute = () => {
-	console.log(Constants.statusBarHeight);
+const CreateRoute = ({ navigation }) => {
 	const [routeData, setRouteData] = useState({
 		name: '',
 		country: '',
@@ -38,8 +37,14 @@ const CreateRoute = () => {
 				return <Step2 jumpTo={jumpTo} setLocationsData={setLocationsData} />;
 			case 'third':
 				return (
-					<Step3 jumpTo={jumpTo} routeData={routeData} locationsData={locationsData} />
+					<Step3
+						jumpTo={jumpTo}
+						routeData={routeData}
+						locationsData={locationsData}
+						navigation={navigation}
+					/>
 				);
+
 			default:
 				return <Step1 jumpTo={jumpTo} />;
 		}
@@ -55,7 +60,6 @@ const CreateRoute = () => {
 				alignItems={'center'}
 				height={10}
 				px={2}
-				// style={{marginTop:Constants. }}
 			>
 				{props.navigationState.routes.map((route, i) => {
 					const activeStyles =
@@ -78,7 +82,13 @@ const CreateRoute = () => {
 	};
 
 	return (
-		<View backgroundColor={COLORS.custom.backgroundWhite} height={'100%'}>
+		<View
+			backgroundColor={COLORS.custom.backgroundWhite}
+			style={{
+				marginTop: Constants.statusBarHeight,
+			}}
+			height={'100%'}
+		>
 			<Heading alignSelf={'center'} mt={4} my={2} fontWeight={'medium'} fontSize={'xl'}>
 				Create a Route
 			</Heading>
