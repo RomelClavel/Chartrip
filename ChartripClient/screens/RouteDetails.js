@@ -44,9 +44,13 @@ const RouteDetails = ({ route, navigation }) => {
 	const routeCenter = getRouteCenter(routeData.locations);
 	return (
 		<>
-			<ScrollView backgroundColor={COLORS.custom.backgroundWhite}>
+			<ScrollView
+				backgroundColor={COLORS.custom.backgroundWhite}
+				width={'100%'}
+				scrollIndicatorInsets={{ right: 1 }}
+			>
 				{/* See if I can separate this to another component*/}
-				<Box>
+				<Box style={{ marginTop: Constants.statusBarHeight }}>
 					<AspectRatio
 						width={'100%'}
 						ratio={{
@@ -77,7 +81,14 @@ const RouteDetails = ({ route, navigation }) => {
 						<ArrowBackIcon color={'white'} size={5} />
 					</Pressable>
 				</Box>
-				<VStack bgColor={'white'} mt={8} py={5} roundedTop={'xl'} alignItems={'center'}>
+				<VStack
+					bgColor={'white'}
+					mt={8}
+					py={5}
+					roundedTop={'xl'}
+					alignItems={'center'}
+					style={{ paddingBottom: Constants.statusBarHeight * 2 }}
+				>
 					<HStack width={'90%'} justifyContent={'space-between'} alignItems={'center'}>
 						<VStack>
 							<Text fontSize={'lg'} fontWeight={'bold'}>
@@ -149,7 +160,11 @@ const RouteDetails = ({ route, navigation }) => {
 						<Text {...textSectionStyles}>Map</Text>
 
 						<MapView
-							style={{ height: 300, width: '100%', borderRadius: 8 }}
+							style={{
+								height: 300,
+								width: '100%',
+								borderRadius: 8,
+							}}
 							initialRegion={{
 								latitude: routeCenter.latitude,
 								longitude: routeCenter.longitude,
@@ -199,8 +214,8 @@ const RouteDetails = ({ route, navigation }) => {
 				alignSelf={'center'}
 				rounded={'lg'}
 				position={'absolute'}
-				bottom={'4'}
-				right={'4'}
+				style={{ bottom: Constants.statusBarHeight }}
+				right={'5'}
 				shadow={'6'}
 				onPress={() => {
 					navigation.navigate('FollowRoute', {

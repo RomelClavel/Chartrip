@@ -15,7 +15,7 @@ const LocationModal = ({ location, isOpen, setSelectedLocation }) => {
 				})
 			}
 		>
-			<Modal.Content width={'100%'}>
+			<Modal.Content width={'100%'} py={4}>
 				<Modal.CloseButton
 					fill={'white'}
 					bgColor={'white'}

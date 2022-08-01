@@ -26,28 +26,26 @@ const Discover = ({ navigation }) => {
 		return unsubscribe;
 	}, [navigation]);
 
-	// console.log(Constants.statusBarHeight);
 	return (
 		<View
 			backgroundColor={COLORS.custom.backgroundWhite}
 			height={'100%'}
-			// mt={Constants.statusBarHeight}
+			// style={{ marginTop: Constants.statusBarHeight }}
 		>
+			<Heading
+				alignSelf={'center'}
+				// mt={4}
+				my={2}
+				fontWeight={'medium'}
+				fontSize={'xl'}
+				style={{ marginTop: Constants.statusBarHeight + 4 }}
+			>
+				Discover
+			</Heading>
 			<FlatList
 				data={routes}
 				keyExtractor={(item) => item.id}
 				renderItem={({ item }) => <RouteTabBig route={item} navigation={navigation} />}
-				ListHeaderComponent={
-					<Heading
-						alignSelf={'center'}
-						mt={4}
-						my={2}
-						fontWeight={'medium'}
-						fontSize={'xl'}
-					>
-						Discover
-					</Heading>
-				}
 			/>
 		</View>
 	);

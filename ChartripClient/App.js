@@ -4,7 +4,7 @@ import { SafeAreaView, StyleSheet } from 'react-native';
 import BottomTabs from './navigation/BottomTabs';
 import { COLORS } from './styles/Styling';
 import { extendTheme, NativeBaseProvider, StatusBar, View } from 'native-base';
-// import Constants from 'expo-constants';
+import Constants from 'expo-constants';
 
 export default function App() {
 	//FIX LATER
@@ -21,21 +21,21 @@ export default function App() {
 
 	return (
 		<NavigationContainer>
-			{/* <StatusBar style="auto" /> */}
-			<SafeAreaView style={{ flex: 0, backgroundColor: COLORS.custom.backgroundWhite }} />
-			<SafeAreaView
+			{/* <SafeAreaView style={{ flex: 0, backgroundColor: COLORS.custom.backgroundWhite }} /> */}
+			<StatusBar barStyle={'dark-content'} />
+			{/* <SafeAreaView
 				style={{
 					flex: 1,
-					paddingTop: Platform.OS === 'android' ? 20 : 0,
+					// paddingTop: Platform.OS === 'android' ? 20 : 0,
 					// backgroundColor: COLORS.custom.backgroundWhite,
 				}}
-			>
-				<NativeBaseProvider theme={theme}>
-					<View flex={1}>
-						<BottomTabs />
-					</View>
-				</NativeBaseProvider>
-			</SafeAreaView>
+			> */}
+			<NativeBaseProvider theme={theme}>
+				<View flex={1}>
+					<BottomTabs />
+				</View>
+			</NativeBaseProvider>
+			{/* </SafeAreaView> */}
 		</NavigationContainer>
 	);
 }

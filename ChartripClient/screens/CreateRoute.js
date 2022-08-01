@@ -6,8 +6,10 @@ import { TabView, SceneMap } from 'react-native-tab-view';
 import Step1 from '../components/createRouteForm/Step1';
 import Step2 from '../components/createRouteForm/Step2';
 import Step3 from '../components/createRouteForm/Step3';
+import Constants from 'expo-constants';
 
 const CreateRoute = () => {
+	console.log(Constants.statusBarHeight);
 	const [routeData, setRouteData] = useState({
 		name: '',
 		country: '',

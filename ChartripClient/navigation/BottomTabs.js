@@ -7,6 +7,7 @@ import AddIcon from '../icons/AddIcon';
 import DiscoverStack from './DiscoverStack';
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import hideBottomBar from '../helpers/hideBottomBar';
+import Constants from 'expo-constants';
 
 const Tab = createBottomTabNavigator();
 
@@ -16,9 +17,11 @@ const BottomTabs = () => {
 			screenOptions={({ route }) => ({
 				headerShown: false,
 				tabBarActiveTintColor: COLORS.custom.primary,
-				//Dont know if this is teh best way to do this
-				tabBarStyle: { paddingTop: 14, height: 60 },
-				tabBarLabelStyle: { fontWeight: '600', fontSize: 11, paddingTop: 10 },
+				tabBarStyle: {
+					backgroundColor: 'white',
+					height: 85,
+				},
+				tabBarLabelStyle: { fontWeight: '600', fontSize: 11 },
 				tabBarIcon: ({ color }) => {
 					const size = 36;
 					switch (route.name) {
@@ -37,7 +40,7 @@ const BottomTabs = () => {
 						if (hideBottomBar(routeName)) {
 							return { display: 'none' };
 						} else {
-							return { paddingTop: 14, height: 60 };
+							return { backgroundColor: 'white', height: 85 };
 						}
 					})(route),
 				})}

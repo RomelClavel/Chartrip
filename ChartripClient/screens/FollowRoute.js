@@ -158,13 +158,18 @@ const FollowRoute = ({ route, navigation }) => {
 				/>
 			</MapView>
 
-			<Box position={'absolute'} alignSelf={'center'} alignItems={'center'} top={5}>
+			<Box
+				position={'absolute'}
+				alignSelf={'center'}
+				alignItems={'center'}
+				style={{ top: Constants.statusBarHeight }}
+			>
 				<NextLocation location={nextLoc} />
 			</Box>
 			<HStack
 				position={'absolute'}
 				alignSelf={'center'}
-				bottom={5}
+				style={{ bottom: Constants.statusBarHeight }}
 				width={'3/4'}
 				justifyContent={'space-around'}
 				bgColor={'white'}
