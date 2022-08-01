@@ -1,5 +1,5 @@
 import { Box, Heading, HStack, Pressable, Spinner, Text, View, VStack } from 'native-base';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import MapView, { Marker } from 'react-native-maps';
 import NextLocation from '../components/NextLocation';
 import * as Location from 'expo-location';
@@ -13,7 +13,6 @@ import CompletedRouteModal from '../components/CompletedRouteModal';
 const FollowRoute = ({ route, navigation }) => {
 	const { locations } = route.params;
 	const [center, setCenter] = useState({ latitude: 0, longitude: 0 });
-	const [loading, setLoading] = useState(true);
 
 	const [nextLoc, setNextLoc] = useState(locations[0]);
 	const [locationModal, setLocationModal] = useState({ open: false, location: {} });
@@ -24,7 +23,7 @@ const FollowRoute = ({ route, navigation }) => {
 	});
 	const [completed, setCompleted] = useState(false);
 
-	const updateUserLocation = async () => {
+	const updateUserLocation = async (newNextLoc = null) => {
 		let { status } = await Location.requestForegroundPermissionsAsync();
 		if (status !== 'granted') {
 			setErrorMsg('Permission to access location was denied');
@@ -34,15 +33,23 @@ const FollowRoute = ({ route, navigation }) => {
 		let { coords } = await Location.getCurrentPositionAsync({
 			accuracy: Location.Accuracy.Balanced,
 		});
-		console.log(coords);
+		// console.log(coords);
 		setUserLocation({ latitude: coords.latitude, longitude: coords.longitude });
-		setCenter(getRouteCenter([userLocation, nextLoc]));
-		setLoading(false);
+		const centerMap = getRouteCenter([
+			{ latitude: coords.latitude, longitude: coords.longitude },
+			nextLoc,
+		]);
+		setCenter(centerMap);
+		if (newNextLoc !== null) {
+			moveTo(
+				centerMap,
+				{ latitude: coords.latitude, longitude: coords.longitude },
+				{ latitude: newNextLoc.latitude, longitude: newNextLoc.longitude }
+			);
+		} else {
+			moveTo(centerMap, { latitude: coords.latitude, longitude: coords.longitude }, nextLoc);
+		}
 	};
-
-	useEffect(() => {
-		updateUserLocation();
-	}, []);
 
 	const openModal = () => {
 		setLocationModal({
@@ -59,8 +66,7 @@ const FollowRoute = ({ route, navigation }) => {
 				...locationModal,
 				open: false,
 			});
-			setLoading(true);
-			updateUserLocation();
+			updateUserLocation(locations[nextIndex]);
 		} else {
 			setLocationModal({
 				...locationModal,
@@ -75,19 +81,34 @@ const FollowRoute = ({ route, navigation }) => {
 		navigation.goBack();
 	};
 
-	if (loading) {
-		return (
-			<VStack justifyContent={'center'} alignItems={'center'} height={'full'}>
-				<Spinner color="primary.500" size={'lg'} />
-				<Heading color={'primary.500'} fontWeight={'semibold'} mt={4}>
-					Loading...
-				</Heading>
-			</VStack>
-		);
-	}
+	const edgePaddingValue = 100;
+	const edgePadding = {
+		top: edgePaddingValue,
+		right: edgePaddingValue,
+		bottom: edgePaddingValue,
+		left: edgePaddingValue,
+	};
+	const moveTo = async (position, userLoc, newNextLoc) => {
+		const camera = await mapRef.current?.getCamera();
+		if (camera) {
+			// camera.center = position;
+			// mapRef.current?.animateCamera(camera, { duration: 300 });
+			mapRef.current?.fitToCoordinates(
+				[userLoc, { latitude: newNextLoc.latitude, longitude: newNextLoc.longitude }],
+				{ edgePadding }
+			);
+		}
+	};
+
+	const mapRef = useRef(null);
+	useEffect(() => {
+		updateUserLocation();
+	}, []);
+
 	return (
 		<View>
 			<MapView
+				ref={mapRef}
 				style={{
 					height: '100%',
 					width: '100%',
@@ -95,7 +116,7 @@ const FollowRoute = ({ route, navigation }) => {
 				initialRegion={{
 					latitude: center.latitude,
 					longitude: center.longitude,
-					latitudeDelta: Math.abs(nextLoc.latitude - userLocation.latitude),
+					latitudeDelta: Math.abs(nextLoc.latitude - userLocation.latitude) * 2,
 					longitudeDelta: Math.abs(nextLoc.longitude - userLocation.longitude) * 2,
 				}}
 			>
@@ -147,7 +168,7 @@ const FollowRoute = ({ route, navigation }) => {
 					rounded={'lg'}
 					borderColor={'primary.500'}
 					borderWidth={2}
-					onPress={updateUserLocation}
+					onPress={() => updateUserLocation(nextLoc)}
 				>
 					<Text
 						px={4}

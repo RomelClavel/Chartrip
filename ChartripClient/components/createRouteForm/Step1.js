@@ -1,4 +1,4 @@
-import { View, ScrollView, Heading, VStack, Text, Pressable, Divider } from 'native-base';
+import { View, ScrollView, Heading, VStack, Text, Pressable, Divider, Box } from 'native-base';
 import React, { useState } from 'react';
 import TextInput from './TextInput';
 import { COLORS } from '../../styles/Styling';
@@ -37,7 +37,7 @@ const Step1 = ({ jumpTo, setRouteData }) => {
 
 	return (
 		<View flex={1} style={{ backgroundColor: COLORS.custom.backgroundWhite }}>
-			<KeyboardAvoidingView behavior="position">
+			<View behavior="position">
 				<ScrollView px={5} scrollEnabled={scroll}>
 					<VStack mx="3">
 						<Heading
@@ -83,7 +83,6 @@ const Step1 = ({ jumpTo, setRouteData }) => {
 							errorMsg={errorMsg}
 							setScroll={setScroll}
 						/>
-
 						<TagInput
 							control={control}
 							name={'tags'}
@@ -91,29 +90,32 @@ const Step1 = ({ jumpTo, setRouteData }) => {
 							labelStyles={labelStyles}
 							errorMsg={errorMsg}
 						/>
-
 						<Divider my={4} />
-						<Pressable
-							bgColor={'primary.500'}
-							title="Submit"
-							onPress={handleSubmit(onSubmit)}
-							mb={10}
-							alignSelf={'flex-end'}
-							rounded={'lg'}
-						>
-							<Text
-								px={4}
-								py={4}
-								color={'white'}
-								fontSize={'md'}
-								fontWeight={'semibold'}
-							>
-								Next Step
-							</Text>
+						<Pressable title="Submit" onPress={handleSubmit(onSubmit)}>
+							{({ isPressed }) => {
+								return (
+									<Box
+										bgColor={isPressed ? 'primary.600' : 'primary.500'}
+										mb={10}
+										alignSelf={'flex-end'}
+										rounded={'lg'}
+									>
+										<Text
+											px={4}
+											py={4}
+											color={'white'}
+											fontSize={'md'}
+											fontWeight={'semibold'}
+										>
+											Next Step
+										</Text>
+									</Box>
+								);
+							}}
 						</Pressable>
 					</VStack>
 				</ScrollView>
-			</KeyboardAvoidingView>
+			</View>
 		</View>
 	);
 };
