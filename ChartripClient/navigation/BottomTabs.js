@@ -5,6 +5,8 @@ import { COLORS } from '../styles/Styling';
 import WorldIcon from '../icons/WorldIcon';
 import AddIcon from '../icons/AddIcon';
 import DiscoverStack from './DiscoverStack';
+import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
+import hideBottomBar from '../helpers/hideBottomBar';
 
 const Tab = createBottomTabNavigator();
 
@@ -28,7 +30,20 @@ const BottomTabs = () => {
 				},
 			})}
 		>
-			<Tab.Screen name="Discover" component={DiscoverStack} />
+			<Tab.Screen
+				options={({ route }) => ({
+					tabBarStyle: ((route) => {
+						const routeName = getFocusedRouteNameFromRoute(route) ?? '';
+						if (hideBottomBar(routeName)) {
+							return { display: 'none' };
+						} else {
+							return { paddingTop: 14, height: 60 };
+						}
+					})(route),
+				})}
+				name="Discover"
+				component={DiscoverStack}
+			/>
 			<Tab.Screen name="Create" component={CreateRoute} />
 		</Tab.Navigator>
 	);

@@ -92,6 +92,9 @@ const Step2 = ({ jumpTo, setLocationsData }) => {
 							);
 						})}
 					</ScrollView>
+
+					<Divider mb={4} />
+
 					<Pressable
 						bgColor={'primary.500'}
 						title="Submit"

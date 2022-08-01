@@ -1,4 +1,14 @@
-import { Box, Heading, HStack, Pressable, Spinner, Text, View, VStack } from 'native-base';
+import {
+	ArrowBackIcon,
+	Box,
+	Heading,
+	HStack,
+	Pressable,
+	Spinner,
+	Text,
+	View,
+	VStack,
+} from 'native-base';
 import React, { useEffect, useState, useRef } from 'react';
 import MapView, { Marker } from 'react-native-maps';
 import NextLocation from '../components/NextLocation';
@@ -148,19 +158,31 @@ const FollowRoute = ({ route, navigation }) => {
 				/>
 			</MapView>
 
-			<Box position={'absolute'} alignSelf={'center'} top={5}>
+			<Box position={'absolute'} alignSelf={'center'} alignItems={'center'} top={5}>
 				<NextLocation location={nextLoc} />
 			</Box>
 			<HStack
 				position={'absolute'}
 				alignSelf={'center'}
 				bottom={5}
-				width={'2/3'}
+				width={'3/4'}
 				justifyContent={'space-around'}
 				bgColor={'white'}
 				py={2}
 				rounded={'lg'}
+				px={2}
 			>
+				<Pressable
+					onPress={() => {
+						navigation.goBack();
+					}}
+					bgColor={'primary.500'}
+					p={1.5}
+					rounded={'lg'}
+					alignSelf={'center'}
+				>
+					<ArrowBackIcon color={'white'} size={6} />
+				</Pressable>
 				<Pressable
 					bgColor={'white'}
 					title="Center"

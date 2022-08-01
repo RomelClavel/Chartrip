@@ -3,6 +3,7 @@ import { Pressable, Text, Heading, View, FlatList, ScrollView } from 'native-bas
 import { COLORS } from '../styles/Styling';
 import { useEffect, useState } from 'react';
 import RouteTabBig from '../components/RouteTabBig';
+import Constants from 'expo-constants';
 
 const Discover = ({ navigation }) => {
 	const [routes, setRoutes] = useState([]);
@@ -25,8 +26,13 @@ const Discover = ({ navigation }) => {
 		return unsubscribe;
 	}, [navigation]);
 
+	// console.log(Constants.statusBarHeight);
 	return (
-		<View backgroundColor={COLORS.custom.backgroundWhite} height={'100%'}>
+		<View
+			backgroundColor={COLORS.custom.backgroundWhite}
+			height={'100%'}
+			// mt={Constants.statusBarHeight}
+		>
 			<FlatList
 				data={routes}
 				keyExtractor={(item) => item.id}
