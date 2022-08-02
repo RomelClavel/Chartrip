@@ -48,9 +48,10 @@ const RouteDetails = ({ route, navigation }) => {
 				backgroundColor={COLORS.custom.backgroundWhite}
 				width={'100%'}
 				scrollIndicatorInsets={{ right: 1 }}
+				style={{ marginTop: Constants.statusBarHeight }}
 			>
 				{/* See if I can separate this to another component*/}
-				<Box style={{ marginTop: Constants.statusBarHeight }}>
+				<Box>
 					<AspectRatio
 						width={'100%'}
 						ratio={{
@@ -208,6 +209,7 @@ const RouteDetails = ({ route, navigation }) => {
 				onPress={() => {
 					navigation.navigate('FollowRoute', {
 						locations: routeData.locations,
+						routeId: routeData.id,
 					});
 				}}
 			>

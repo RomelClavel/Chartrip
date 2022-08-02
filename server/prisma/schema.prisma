@@ -21,7 +21,7 @@ model User {
   password String 
   about String?
   routes Route[]
-  // completed Route[]
+  completed CompletedRoute[]
   // locations Location[]
 }
 
@@ -42,6 +42,9 @@ model Route {
 
   creator User? @relation(fields: [creatorId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   creatorId String?
+
+    completed CompletedRoute[]
+
 }
 
 model Location {
@@ -73,6 +76,13 @@ model RoutesOnTags {
   tag Tag @relation(fields: [tagId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   tagId String
   @@id([routeId, tagId])
+}
+model CompletedRoute {
+  route Route @relation(fields: [routeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  routeId String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId String
+  @@id([routeId, userId])
 }
 
 enum Type {

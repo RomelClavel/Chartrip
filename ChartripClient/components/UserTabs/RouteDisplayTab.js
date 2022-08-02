@@ -11,13 +11,14 @@ const RouteDisplayTab = ({ type, user }) => {
 			try {
 				if (type === 'My') {
 					data = await fetch(`http://192.168.1.215:3001/userroutes/${user.id}`);
+					const { routes } = await data.json();
+					setRoutes(routes);
 				} else {
-					data = await fetch('http://192.168.1.215:3001/routes');
+					data = await fetch(`http://192.168.1.215:3001/completed/${user.id}`);
+					const { routes } = await data.json();
+					setRoutes(routes.map(({ route }) => route));
 				}
-				const { routes } = await data.json();
 				// const routeData = JSON.stringify(routes);
-
-				setRoutes(routes);
 			} catch (error) {
 				console.log(error);
 			}

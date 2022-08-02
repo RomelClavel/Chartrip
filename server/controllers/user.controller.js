@@ -52,7 +52,76 @@ const postUser = async (req, res) => {
 	}
 };
 
+const getCompletedRoutes = async (req, res) => {
+	try {
+		const userId = req.params.id;
+
+		const routes = await prisma.completedRoute.findMany({
+			where: {
+				userId: userId,
+			},
+			include: {
+				route: true,
+			},
+		});
+
+		// console.log(routes);
+		// //Format the tag field on the result of the routes query so it can be accessed more easily
+		// const formattedRoutes = routes.map((route) => {
+		// 	return {
+		// 		...route,
+		// 		tags: route.tags.map(({ tag }) => {
+		// 			return tag;
+		// 		}),
+		// 	};
+		// });
+		res.status(200).json({
+			OK: true,
+			routes: routes,
+		});
+	} catch (error) {
+		console.log(error);
+		res.json({
+			OK: false,
+			error_msj: error,
+		});
+	}
+};
+
+const completeRoute = async (req, res) => {
+	try {
+		const { routeId, userId } = req.body;
+		const newCompletion = await prisma.completedRoute.create({
+			data: {
+				route: {
+					connect: {
+						id: routeId,
+					},
+				},
+				user: {
+					connect: {
+						id: userId,
+					},
+				},
+			},
+		});
+
+		res.status(200).json({
+			OK: true,
+			completion: newCompletion,
+		});
+	} catch (error) {
+		console.log(error);
+		res.json({
+			OK: false,
+			error_msj: error,
+		});
+	}
+};
+
 module.exports = {
 	getUser,
 	postUser,
+	completeRoute,
+	getCompletedRoutes,
 };

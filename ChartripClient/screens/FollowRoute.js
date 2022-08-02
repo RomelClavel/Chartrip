@@ -20,9 +20,10 @@ import getRouteCenter from '../helpers/getRouteCenter';
 import FollowLocModal from '../components/FollowLocModal';
 import SuccessModal from '../components/SuccessModal';
 import ConfirmExitModal from '../components/ConfirmExitModal';
+import { getData } from '../helpers/storageFunctions';
 
 const FollowRoute = ({ route, navigation }) => {
-	const { locations } = route.params;
+	const { locations, routeId } = route.params;
 	const [center, setCenter] = useState({ latitude: 0, longitude: 0 });
 
 	const [nextLoc, setNextLoc] = useState(locations[0]);
@@ -90,9 +91,37 @@ const FollowRoute = ({ route, navigation }) => {
 	};
 
 	const goToStart = () => {
+		//Do the post request
 		setCompleted(false);
 		navigation.goBack();
 	};
+
+	const markAsCompleted = () => {
+		fetch('http://192.168.1.215:3001/complete', {
+			body: JSON.stringify({
+				userId: user.id,
+				routeId: routeId,
+			}),
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		})
+			.then((response) => response.json())
+			.then((json) => {
+				console.log({
+					json,
+				});
+				goToStart();
+			})
+			.catch((err) => {
+				console.log({
+					err,
+				});
+			});
+	};
+
+	const [user, setUser] = useState({});
 
 	const edgePaddingValue = 100;
 	const edgePadding = {
@@ -116,6 +145,11 @@ const FollowRoute = ({ route, navigation }) => {
 	const mapRef = useRef(null);
 	useEffect(() => {
 		updateUserLocation();
+		const getUserData = async () => {
+			const userData = await getData('userData');
+			setUser(JSON.parse(userData));
+		};
+		getUserData();
 	}, []);
 
 	return (
@@ -234,7 +268,7 @@ const FollowRoute = ({ route, navigation }) => {
 			/>
 			<SuccessModal
 				open={completed}
-				closeModal={() => goToStart()}
+				closeModal={() => markAsCompleted()}
 				img={require('../icons/CompletedImg.png')}
 				text={'Thank you for traversing our Route!'}
 			/>

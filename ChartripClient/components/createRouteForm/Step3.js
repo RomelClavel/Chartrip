@@ -45,7 +45,6 @@ const Step3 = ({ routeData, locationsData, navigation }) => {
 	}, []);
 
 	const createRoute = () => {
-		console.log('A');
 		const data = formatRouteData(routeData, locationsData);
 		const newRouteData = {
 			...data,

@@ -15,7 +15,12 @@ const {
 } = require('../controllers/locations.controller');
 
 const { getCountries, getStatesByCountry } = require('../controllers/cs.api');
-const { getUser, postUser } = require('../controllers/user.controller');
+const {
+	getUser,
+	postUser,
+	completeRoute,
+	getCompletedRoutes,
+} = require('../controllers/user.controller');
 
 //ROUTES
 router.get('/routes', getRoutes);
@@ -40,5 +45,7 @@ router.get('/states/:country', getStatesByCountry);
 //Users
 router.get('/user/:email', getUser);
 router.post('/adduser', postUser);
+router.get('/completed/:id', getCompletedRoutes);
+router.post('/complete', completeRoute);
 
 module.exports = router;
