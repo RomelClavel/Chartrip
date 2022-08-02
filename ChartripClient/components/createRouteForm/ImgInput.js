@@ -5,8 +5,9 @@ import { Box, Image, Pressable, Skeleton, Spinner, Text } from 'native-base';
 import ImgIcon from '../../icons/ImgIcon';
 import { COLORS } from '../../styles/Styling';
 import Constants from 'expo-constants';
+import ProfileIcon from '../../icons/ProfileIcon';
 
-const ImgInput = ({ control, errors, labelStyles, errorMsg }) => {
+const ImgInput = ({ name = 'thumbnail', control, errors, labelStyles, errorMsg, user = false }) => {
 	const [image, setImage] = useState('');
 	const [loading, setLoading] = useState(false);
 	const pickImage = async (onChange) => {
@@ -17,10 +18,8 @@ const ImgInput = ({ control, errors, labelStyles, errorMsg }) => {
 		});
 		if (!result.cancelled) {
 			setLoading(true);
-			// setImage({ image: result.uri });
 
 			//MAKE PNG
-			// let base64Img = `data:image/jpg;base64,${result.base64}`;
 			let base64Img = `data:image/png;base64,${result.base64}`;
 
 			let apiUrl = Constants.manifest.extra.CLOUDINARY_URL;
@@ -53,7 +52,7 @@ const ImgInput = ({ control, errors, labelStyles, errorMsg }) => {
 			<Text {...labelStyles}> Add a photo</Text>
 
 			<Controller
-				name="thumbnail"
+				name={name}
 				control={control}
 				rules={{
 					required: true,
@@ -66,23 +65,31 @@ const ImgInput = ({ control, errors, labelStyles, errorMsg }) => {
 									uri: image,
 								}}
 								alt="AltText"
-								size={200}
-								rounded={'lg'}
+								size={user ? 150 : 200}
+								rounded={user ? 'full' : 'lg'}
 								alignSelf={'center'}
 							/>
 						) : (
-							<Box height={180} alignItems={'center'} justifyContent={'center'}>
+							<Box
+								height={user ? 150 : 180}
+								alignItems={'center'}
+								justifyContent={'center'}
+							>
 								{!loading ? (
 									<Pressable
 										alignSelf={'center'}
 										justifyContent={'center'}
 										alignItems={'center'}
-										width={'90%'}
+										width={user ? '150' : '90%'}
 										bgColor={COLORS.custom.grey}
-										rounded={'lg'}
+										rounded={user ? 'full' : 'lg'}
 										onPress={() => pickImage(onChange)}
 									>
-										<ImgIcon size={180} color={'white'} />
+										{user ? (
+											<ProfileIcon size={150} color={'white'} />
+										) : (
+											<ImgIcon size={180} color={'white'} />
+										)}
 									</Pressable>
 								) : (
 									<Spinner size={'lg'} />

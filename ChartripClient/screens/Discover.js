@@ -35,7 +35,7 @@ const Discover = ({ navigation }) => {
 			<Heading
 				alignSelf={'center'}
 				// mt={4}
-				my={2}
+				my={3}
 				fontWeight={'medium'}
 				fontSize={'xl'}
 				style={{ marginTop: Constants.statusBarHeight + 4 }}
@@ -43,6 +43,7 @@ const Discover = ({ navigation }) => {
 				Discover
 			</Heading>
 			<FlatList
+				pt={4}
 				data={routes}
 				keyExtractor={(item) => item.id}
 				renderItem={({ item }) => <RouteTabBig route={item} navigation={navigation} />}

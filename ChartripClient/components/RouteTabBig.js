@@ -33,14 +33,19 @@ const RouteTabBig = ({ route, navigation }) => {
 							alt="Route Thumbnail"
 						/>
 					</AspectRatio>
-					<HStack py={3} alignItems={'center'} justifyContent={'space-around'}>
+					<HStack py={3} px={2} alignItems={'center'} justifyContent={'space-around'}>
 						<VStack>
-							<Text fontSize={'md'} fontWeight={'semibold'}>
+							<Text
+								fontSize={'md'}
+								fontWeight={'semibold'}
+								isTruncated
+								width={'100%'}
+							>
 								{name}
 							</Text>
-							<HStack alignItems={'center'} opacity={60}>
+							<HStack alignItems={'center'} opacity={60} width={'80%'}>
 								<LocationIcon size={22} color={'black'} />
-								<Text> {`${country}, ${city}`} </Text>
+								<Text isTruncated> {`${country}, ${city}`} </Text>
 							</HStack>
 						</VStack>
 						<HStack

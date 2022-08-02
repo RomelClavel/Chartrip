@@ -9,6 +9,8 @@ import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import hideBottomBar from '../helpers/hideBottomBar';
 import Constants from 'expo-constants';
 import CreateStack from './CreateStack';
+import Profile from '../screens/Profile';
+import ProfileIcon from '../icons/ProfileIcon';
 
 const Tab = createBottomTabNavigator();
 
@@ -28,6 +30,8 @@ const BottomTabs = () => {
 					switch (route.name) {
 						case 'Discover':
 							return <WorldIcon color={color} size={size} />;
+						case 'Profile':
+							return <ProfileIcon color={color} size={size} />;
 						default:
 							return <AddIcon color={color} size={size} />;
 					}
@@ -62,6 +66,7 @@ const BottomTabs = () => {
 				name="Create"
 				component={CreateStack}
 			/>
+			<Tab.Screen name="Profile" component={Profile} />
 		</Tab.Navigator>
 	);
 };

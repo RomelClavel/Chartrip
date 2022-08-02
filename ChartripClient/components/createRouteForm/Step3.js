@@ -25,18 +25,35 @@ import LocationSmall from '../LocationSmall';
 import Constants from 'expo-constants';
 import formatRouteData from '../../helpers/formatRouteData';
 import SuccessModal from '../SuccessModal';
+import { useEffect } from 'react';
+import { getData } from '../../helpers/storageFunctions';
 
 const Step3 = ({ routeData, locationsData, navigation }) => {
 	if (locationsData.length === 0) {
 		return <></>;
 	}
-
 	const [successModal, setSuccessModal] = useState(false);
 
+	const [user, setUser] = useState({});
+
+	useEffect(() => {
+		const getUserData = async () => {
+			const userData = await getData('userData');
+			setUser(JSON.parse(userData));
+		};
+		getUserData();
+	}, []);
+
 	const createRoute = () => {
+		console.log('A');
 		const data = formatRouteData(routeData, locationsData);
+		const newRouteData = {
+			...data,
+			creatorId: user.id,
+			userPicture: user.profilePic,
+		};
 		fetch('http://192.168.1.215:3001/new/route', {
-			body: JSON.stringify(data),
+			body: JSON.stringify(newRouteData),
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',

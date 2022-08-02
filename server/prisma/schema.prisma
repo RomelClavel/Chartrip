@@ -13,16 +13,17 @@ datasource db {
 //Here are the models of the database
 
 // NOT MVP => If I have time i'll implement it 
-// model User {
-//   id String @id @default(cuid())
-//   email String @unique
-//   fullName String 
-//   profilePic String
-//   password String 
-//   about String
-//   routes Route[]
-//   locations Location[]
-// }
+model User {
+  id String @id @default(cuid())
+  email String @unique
+  fullName String 
+  profilePic String?
+  password String 
+  about String?
+  routes Route[]
+  // completed Route[]
+  // locations Location[]
+}
 
 model Route {
   id String @id @default(cuid())
@@ -39,8 +40,8 @@ model Route {
   locations Location[]
   tags RoutesOnTags[]
 
-  // NOT MVP => creator User @relation(fields: [creatorId], references: [id])
-  // creatorId String
+  creator User? @relation(fields: [creatorId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  creatorId String?
 }
 
 model Location {
@@ -56,8 +57,8 @@ model Location {
   routeId String
   position Int
 
-  // NOT MVP => creator User @relation(fields: [creatorId], references: [id])
-  //creatorId Int
+  // creator User? @relation(fields: [creatorId], references: [id])
+  // creatorId Int?
 }
 
 model Tag {

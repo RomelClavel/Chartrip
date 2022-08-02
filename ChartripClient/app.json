@@ -30,7 +30,8 @@
 		"extra": {
 			"GOOGLE_MAPS_API_KEY": "AIzaSyBsWEG5VIepvFo_LU0QzBG99bYdWhdaiJA",
 			"CLOUDINARY_URL": "https://api.cloudinary.com/v1_1/dyicovnlz/upload",
-			"PRESET_CLOUDINARY_NAME": "ep160veg"
+			"PRESET_CLOUDINARY_NAME": "ep160veg",
+			"SECRET_JWT_SEED": "Secret-For-My-App-That-Im-Implementing-Now-My-Guy"
 		}
 	}
 }

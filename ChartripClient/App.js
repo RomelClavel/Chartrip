@@ -5,6 +5,7 @@ import BottomTabs from './navigation/BottomTabs';
 import { COLORS } from './styles/Styling';
 import { extendTheme, NativeBaseProvider, StatusBar, View } from 'native-base';
 import Constants from 'expo-constants';
+import AppStack from './navigation/AppStack';
 
 export default function App() {
 	//FIX LATER
@@ -32,7 +33,9 @@ export default function App() {
 			> */}
 			<NativeBaseProvider theme={theme}>
 				<View flex={1}>
-					<BottomTabs />
+					{/* <BottomTabs /> */}
+
+					<AppStack />
 				</View>
 			</NativeBaseProvider>
 			{/* </SafeAreaView> */}
