@@ -175,7 +175,7 @@ const FollowRoute = ({ route, navigation }) => {
 						}}
 						apikey={Constants.manifest.extra.GOOGLE_MAPS_API_KEY} // insert your API Key here
 						strokeWidth={4}
-						strokeColor={COLORS.custom.primaryDark}
+						strokeColor={COLORS.custom.primary}
 						mode={'WALKING'}
 					/>
 				)}

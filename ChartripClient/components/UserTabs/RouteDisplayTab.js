@@ -1,4 +1,4 @@
-import { View, Text, HStack, ScrollView } from 'native-base';
+import { View, Text, HStack, ScrollView, AspectRatio, Image } from 'native-base';
 import React, { useEffect, useState } from 'react';
 import SmallRoute from '../SmallRoute';
 
@@ -10,11 +10,11 @@ const RouteDisplayTab = ({ type, user }) => {
 		const fetchRoutes = async () => {
 			try {
 				if (type === 'My') {
-					data = await fetch(`http://192.168.1.215:3001/userroutes/${user.id}`);
+					const data = await fetch(`http://192.168.1.215:3001/userroutes/${user.id}`);
 					const { routes } = await data.json();
 					setRoutes(routes);
 				} else {
-					data = await fetch(`http://192.168.1.215:3001/completed/${user.id}`);
+					const data = await fetch(`http://192.168.1.215:3001/completed/${user.id}`);
 					const { routes } = await data.json();
 					setRoutes(routes.map(({ route }) => route));
 				}
@@ -28,12 +28,33 @@ const RouteDisplayTab = ({ type, user }) => {
 
 	return (
 		<ScrollView>
-			{routes.length > 0 && (
+			{routes.length > 0 ? (
 				<HStack flexWrap={'wrap'} px={6} justifyContent={'space-between'}>
 					{routes.map((route, index) => (
 						<SmallRoute key={index} route={route} />
 					))}
 				</HStack>
+			) : (
+				<>
+					<AspectRatio
+						ratio={{
+							base: 5 / 3,
+							md: 9 / 10,
+						}}
+						width={'100%'}
+						my={8}
+						alignSelf={'center'}
+					>
+						<Image
+							size={'full'}
+							source={require('../../icons/EmptyMap.png')}
+							alt="Alternate Text"
+						/>
+					</AspectRatio>
+					<Text fontWeight={'semibold'} opacity={60} alignSelf={'center'} fontSize={'xl'}>
+						No Routes Here.
+					</Text>
+				</>
 			)}
 		</ScrollView>
 	);

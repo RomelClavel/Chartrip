@@ -75,7 +75,6 @@ const UserProfileTabs = ({ user }) => {
 				renderTabBar={TabBox}
 				onIndexChange={setIndex}
 				initialLayout={{ width: layout.width }}
-				swipeEnabled={false}
 			/>
 		</View>
 	);
