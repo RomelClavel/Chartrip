@@ -18,10 +18,12 @@ const NextLocation = ({ location }) => {
 					{' '}
 					Next Stop:{' '}
 				</Heading>
-				<Text fontSize={'md'} fontWeight={'semibold'}>
+				<Text fontSize={'md'} fontWeight={'semibold'} isTruncated>
 					{name}
 				</Text>
-				<Text opacity={70}>{address ? address : 'Temp Adress'}</Text>
+				<Text opacity={70} isTruncated>
+					{address ? address : 'Temp Adress'}
+				</Text>
 			</VStack>
 			<AspectRatio
 				height={'100%'}
