@@ -43,7 +43,7 @@ router.get('/countries', getCountries);
 router.get('/states/:country', getStatesByCountry);
 
 //Users
-router.get('/user/:email', getUser);
+router.get('/users', getUser);
 router.post('/adduser', postUser);
 router.get('/completed/:id', getCompletedRoutes);
 router.post('/complete', completeRoute);

@@ -80,7 +80,7 @@ const RouteDetails = ({ route, navigation }) => {
 				>
 					<HStack width={'90%'} justifyContent={'space-between'} alignItems={'center'}>
 						<VStack>
-							<Text fontSize={'lg'} fontWeight={'bold'}>
+							<Text fontSize={'lg'} fontWeight={'bold'} isTruncated width={'64'}>
 								{routeData.name}
 							</Text>
 							<HStack alignItems={'center'} opacity={60} ml={2}>

@@ -35,12 +35,7 @@ const RouteTabBig = ({ route, navigation }) => {
 					</AspectRatio>
 					<HStack py={3} px={2} alignItems={'center'} justifyContent={'space-around'}>
 						<VStack>
-							<Text
-								fontSize={'md'}
-								fontWeight={'semibold'}
-								isTruncated
-								width={'100%'}
-							>
+							<Text fontSize={'md'} fontWeight={'semibold'} isTruncated width={'48'}>
 								{name}
 							</Text>
 							<HStack alignItems={'center'} opacity={60} width={'80%'}>

@@ -4,13 +4,9 @@ const prisma = new PrismaClient();
 
 const getUser = async (req, res) => {
 	try {
-		const email = req.params.email;
-		console.log(email);
-		const user = await prisma.user.findUnique({
-			where: {
-				email: email,
-			},
-		});
+		// const email = req.params.email;
+		// console.log(email);
+		const user = await prisma.user.findMany({});
 		res.status(200).json(user);
 	} catch (error) {
 		console.log(error);
