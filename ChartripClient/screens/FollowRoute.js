@@ -1,14 +1,4 @@
-import {
-	ArrowBackIcon,
-	Box,
-	Heading,
-	HStack,
-	Pressable,
-	Spinner,
-	Text,
-	View,
-	VStack,
-} from 'native-base';
+import { Box, HStack, Pressable, Text, View } from 'native-base';
 import React, { useEffect, useState, useRef } from 'react';
 import MapView, { Marker } from 'react-native-maps';
 import NextLocation from '../components/NextLocation';
@@ -47,7 +37,6 @@ const FollowRoute = ({ route, navigation }) => {
 		let { coords } = await Location.getCurrentPositionAsync({
 			accuracy: Location.Accuracy.Balanced,
 		});
-		// console.log(coords);
 		setUserLocation({ latitude: coords.latitude, longitude: coords.longitude });
 		const centerMap = getRouteCenter([
 			{ latitude: coords.latitude, longitude: coords.longitude },
@@ -91,7 +80,6 @@ const FollowRoute = ({ route, navigation }) => {
 	};
 
 	const goToStart = () => {
-		//Do the post request
 		setCompleted(false);
 		navigation.goBack();
 	};

@@ -1,13 +1,11 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import CreateRoute from '../screens/CreateRoute';
 import { COLORS } from '../styles/Styling';
 import WorldIcon from '../icons/WorldIcon';
 import AddIcon from '../icons/AddIcon';
 import DiscoverStack from './DiscoverStack';
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import hideBottomBar from '../helpers/hideBottomBar';
-import Constants from 'expo-constants';
 import CreateStack from './CreateStack';
 import Profile from '../screens/Profile';
 import ProfileIcon from '../icons/ProfileIcon';
@@ -15,6 +13,17 @@ import ProfileIcon from '../icons/ProfileIcon';
 const Tab = createBottomTabNavigator();
 
 const BottomTabs = () => {
+	const hideBottomTab = ({ route }) => ({
+		tabBarStyle: ((route) => {
+			const routeName = getFocusedRouteNameFromRoute(route) ?? '';
+			if (hideBottomBar(routeName)) {
+				return { display: 'none' };
+			} else {
+				return { backgroundColor: 'white', height: 85 };
+			}
+		})(route),
+	});
+
 	return (
 		<Tab.Navigator
 			screenOptions={({ route }) => ({
@@ -38,34 +47,10 @@ const BottomTabs = () => {
 				},
 			})}
 		>
-			<Tab.Screen
-				options={({ route }) => ({
-					tabBarStyle: ((route) => {
-						const routeName = getFocusedRouteNameFromRoute(route) ?? '';
-						if (hideBottomBar(routeName)) {
-							return { display: 'none' };
-						} else {
-							return { backgroundColor: 'white', height: 85 };
-						}
-					})(route),
-				})}
-				name="Discover"
-				component={DiscoverStack}
-			/>
-			<Tab.Screen
-				options={({ route }) => ({
-					tabBarStyle: ((route) => {
-						const routeName = getFocusedRouteNameFromRoute(route) ?? '';
-						if (hideBottomBar(routeName)) {
-							return { display: 'none' };
-						} else {
-							return { backgroundColor: 'white', height: 85 };
-						}
-					})(route),
-				})}
-				name="Create"
-				component={CreateStack}
-			/>
+			{/*  Made options the hideBottomTab function */}
+			{/*  If it breaks its this */}
+			<Tab.Screen options={hideBottomTab} name="Discover" component={DiscoverStack} />
+			<Tab.Screen options={hideBottomTab} name="Create" component={CreateStack} />
 			<Tab.Screen name="Profile" component={Profile} />
 		</Tab.Navigator>
 	);

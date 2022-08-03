@@ -1,5 +1,4 @@
-import { StyleSheet } from 'react-native';
-import { Pressable, Text, Heading, View, FlatList, ScrollView } from 'native-base';
+import { Heading, View, FlatList } from 'native-base';
 import { COLORS } from '../styles/Styling';
 import { useEffect, useState } from 'react';
 import RouteTabBig from '../components/RouteTabBig';
@@ -9,6 +8,7 @@ const Discover = ({ navigation }) => {
 	const [routes, setRoutes] = useState([]);
 
 	useEffect(() => {
+		//This can be improved with React Query
 		const unsubscribe = navigation.addListener('focus', () => {
 			const fetchRoutes = async () => {
 				try {
@@ -27,14 +27,9 @@ const Discover = ({ navigation }) => {
 	}, [navigation]);
 
 	return (
-		<View
-			backgroundColor={COLORS.custom.backgroundWhite}
-			height={'100%'}
-			// style={{ marginTop: Constants.statusBarHeight }}
-		>
+		<View backgroundColor={COLORS.custom.backgroundWhite} height={'100%'}>
 			<Heading
 				alignSelf={'center'}
-				// mt={4}
 				my={3}
 				fontWeight={'medium'}
 				fontSize={'xl'}

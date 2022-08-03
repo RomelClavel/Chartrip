@@ -1,4 +1,4 @@
-import { View, Text, HStack, ScrollView, AspectRatio, Image } from 'native-base';
+import { Text, HStack, ScrollView, AspectRatio, Image } from 'native-base';
 import React, { useEffect, useState } from 'react';
 import SmallRoute from '../SmallRoute';
 
@@ -12,7 +12,7 @@ const RouteDisplayTab = ({ type, user }) => {
 				if (type === 'My') {
 					const data = await fetch(`http://192.168.1.215:3001/userroutes/${user.id}`);
 					const { routes } = await data.json();
-					setRoutes(routes);
+					setRoutes(routes ? routes : []);
 				} else {
 					const data = await fetch(`http://192.168.1.215:3001/completed/${user.id}`);
 					const { routes } = await data.json();

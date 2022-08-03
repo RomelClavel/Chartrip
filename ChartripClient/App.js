@@ -1,10 +1,7 @@
-// import { StatusBar } from 'expo-status-bar';
+import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer } from '@react-navigation/native';
-import { SafeAreaView, StyleSheet } from 'react-native';
-import BottomTabs from './navigation/BottomTabs';
 import { COLORS } from './styles/Styling';
-import { extendTheme, NativeBaseProvider, StatusBar, View } from 'native-base';
-import Constants from 'expo-constants';
+import { extendTheme, NativeBaseProvider, View } from 'native-base';
 import AppStack from './navigation/AppStack';
 
 export default function App() {
@@ -22,23 +19,12 @@ export default function App() {
 
 	return (
 		<NavigationContainer>
-			{/* <SafeAreaView style={{ flex: 0, backgroundColor: COLORS.custom.backgroundWhite }} /> */}
 			<StatusBar barStyle={'dark-content'} backgroundColor={COLORS.custom.backgroundWhite} />
-			{/* <SafeAreaView
-				style={{
-					flex: 1,
-					// paddingTop: Platform.OS === 'android' ? 20 : 0,
-					// backgroundColor: COLORS.custom.backgroundWhite,
-				}}
-			> */}
 			<NativeBaseProvider theme={theme}>
 				<View flex={1}>
-					{/* <BottomTabs /> */}
-
 					<AppStack />
 				</View>
 			</NativeBaseProvider>
-			{/* </SafeAreaView> */}
 		</NavigationContainer>
 	);
 }

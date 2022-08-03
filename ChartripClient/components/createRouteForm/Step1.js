@@ -10,8 +10,6 @@ import ImgInput from './ImgInput';
 import TagInput from './TagInput';
 import Constants from 'expo-constants';
 
-import { KeyboardAvoidingView } from 'react-native';
-
 const Step1 = ({ jumpTo, setRouteData }) => {
 	const {
 		control,

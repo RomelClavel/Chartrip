@@ -1,10 +1,9 @@
 import { View, Text, HStack, Pressable, Divider } from 'native-base';
 import React, { useState } from 'react';
 import { useWindowDimensions } from 'react-native';
-import { TabView, SceneMap } from 'react-native-tab-view';
+import { TabView } from 'react-native-tab-view';
 import { COLORS } from '../styles/Styling';
 import RouteDisplayTab from './UserTabs/RouteDisplayTab';
-import Constants from 'expo-constants';
 
 const UserProfileTabs = ({ user }) => {
 	const [index, setIndex] = useState(0);
@@ -21,7 +20,7 @@ const UserProfileTabs = ({ user }) => {
 			case 'second':
 				return <RouteDisplayTab type={'Completed'} user={user} />;
 			default:
-				return <RouteDisplayTab />;
+				return <RouteDisplayTab type={'Completed'} user={user} />;
 		}
 	};
 

@@ -1,20 +1,7 @@
-import {
-	Box,
-	Center,
-	Divider,
-	Heading,
-	HStack,
-	Modal,
-	ScrollView,
-	Text,
-	View,
-	VStack,
-	Pressable,
-} from 'native-base';
+import { Divider, Heading, HStack, ScrollView, Text, View, VStack, Pressable } from 'native-base';
 import React, { useState } from 'react';
 import ImgIcon from '../../icons/ImgIcon';
 import { COLORS } from '../../styles/Styling';
-import AddIcon from '../../icons/AddIcon';
 import AddLocationModal from './AddLocationModal';
 import { useForm } from 'react-hook-form';
 import GooglePlacesInput from '../GooglePlacesInput';

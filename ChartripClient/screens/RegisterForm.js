@@ -1,7 +1,17 @@
-import { Box, Divider, Heading, Pressable, Text, View, VStack } from 'native-base';
+import {
+	AspectRatio,
+	Box,
+	Divider,
+	Heading,
+	Image,
+	Pressable,
+	Text,
+	View,
+	VStack,
+} from 'native-base';
 import { KeyboardAvoidingView } from 'react-native';
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import Constants from 'expo-constants';
 import { useForm } from 'react-hook-form';
 import TextInput from '../components/createRouteForm/TextInput';
@@ -66,6 +76,21 @@ const RegisterForm = ({ navigation }) => {
 			alignItems={'center'}
 			justifyContent={'center'}
 		>
+			<AspectRatio
+				ratio={{
+					base: 5 / 2,
+					md: 9 / 10,
+				}}
+				width={'2/3'}
+				mb={4}
+			>
+				<Image
+					source={require('../icons/Logo.png')}
+					alt="Alternate Text"
+					size={'full'}
+					rounded={'full'}
+				/>
+			</AspectRatio>
 			<KeyboardAvoidingView
 				behavior="position"
 				keyboardVerticalOffset={-90}
@@ -81,8 +106,6 @@ const RegisterForm = ({ navigation }) => {
 					style={{ backgroundColor: COLORS.custom.backgroundWhite, width: 370 }}
 					px={5}
 					py={8}
-					// alignContent={'center'}
-					// justifyContent={'space-evenly'}
 					rounded={'lg'}
 				>
 					<Heading alignSelf={'center'}> Sign In </Heading>

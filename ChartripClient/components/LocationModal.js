@@ -56,7 +56,7 @@ const LocationModal = ({ location, isOpen, setSelectedLocation }) => {
 						>
 							What to do
 						</Text>
-						<Text> {lorem} </Text>
+						<Text> {whatToDo} </Text>
 						{isOpen ? (
 							<MapView
 								style={{

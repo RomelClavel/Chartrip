@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
-	View,
 	Text,
 	Box,
 	AspectRatio,
@@ -10,12 +9,8 @@ import {
 	VStack,
 	HStack,
 	Divider,
-	FlatList,
 	Badge,
 	ScrollView,
-	Center,
-	Fab,
-	Modal,
 } from 'native-base';
 import { COLORS } from '../styles/Styling';
 import LocationIcon from '../icons/LocationIcon';
@@ -29,8 +24,6 @@ import createMapDirections from '../helpers/createMapDirections';
 import getRouteCenter from '../helpers/getRouteCenter';
 import Constants from 'expo-constants';
 import FollowRouteIcon from '../icons/FollowRouteIcon';
-
-// import * as Location from 'expo-location';
 
 const RouteDetails = ({ route, navigation }) => {
 	const { routeData } = route.params;
