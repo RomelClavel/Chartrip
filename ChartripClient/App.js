@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { COLORS } from './styles/Styling';
 import { extendTheme, NativeBaseProvider, View } from 'native-base';
 import AppStack from './navigation/AppStack';
+import 'react-native-gesture-handler';
 
 export default function App() {
 	//FIX LATER
