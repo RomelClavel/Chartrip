@@ -53,7 +53,7 @@ npm install
 "SECRET_JWT_SEED": "YOUR_SUPPER_SECRET_JWT_SEED"
 ```
 
-4. Do teh same for the server folder on your .env file
+4. Do the same for the server folder on your .env file
 
 ```
 DATABASE_URL="CONNECTION_URL"
